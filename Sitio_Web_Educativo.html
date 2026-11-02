@@ -1,0 +1,1543 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Arquitectura de Computadoras: El corazón inteligente de la máquina</title>
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <style>
+    .nav-btn.active {
+      background-color: #2563eb;
+      color: #ffffff;
+      font-weight: 600;
+    }
+    .device-active {
+      background-color: #1e293b;
+      color: #ffffff;
+    }
+    .mobile-frame {
+      max-width: 410px !important;
+      margin: 0 auto;
+      border: 12px solid #334155;
+      border-radius: 36px;
+      padding: 12px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+      background-color: #ffffff;
+    }
+    .table-container {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    .product-img {
+      max-height: 140px;
+      object-fit: contain;
+      width: 100%;
+      background: #ffffff;
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased min-h-screen flex flex-col">
+
+  <!-- BARRA SUPERIOR DE CONTROL DE VISTA PREVIA (MODO ESCRITORIO / CELULAR) -->
+  <div class="bg-slate-900 text-white px-4 py-2 flex flex-wrap items-center justify-between gap-3 text-xs border-b border-slate-700 sticky top-0 z-50 shadow">
+    <div class="flex items-center gap-2">
+      <span class="inline-block w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+      <span class="font-medium tracking-wide">VISTA PREVIA DE GOOGLE SITES · IACO 2026</span>
+      <span class="text-slate-400 hidden sm:inline">| Prof. Emmanuel Galiotti</span>
+    </div>
+    <div class="flex items-center gap-2 bg-slate-800 p-1 rounded-lg border border-slate-700">
+      <span class="text-slate-300 font-medium px-2">Simular vista:</span>
+      <button id="btnDesktop" onclick="setDeviceView('desktop')" class="px-3 py-1 rounded text-xs font-semibold device-active transition-all">
+        💻 Computadora
+      </button>
+      <button id="btnMobile" onclick="setDeviceView('mobile')" class="px-3 py-1 rounded text-xs font-semibold text-slate-300 hover:text-white transition-all">
+        📱 Celular
+      </button>
+    </div>
+  </div>
+
+  <!-- ENTORNO CONTENEDOR (CAMBIA SEGÚN MODO DISPOSITIVO) -->
+  <div id="previewContainer" class="flex-grow w-full max-w-6xl mx-auto transition-all duration-300 p-3 md:p-6">
+    
+    <!-- CONTENIDO TIPO GOOGLE SITES -->
+    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+      
+      <!-- HEADER / NAVEGACIÓN PRINCIPAL -->
+      <header class="border-b border-slate-200 bg-white sticky top-9 z-40">
+        <div class="px-4 py-3 sm:px-6 flex flex-col md:flex-row md:items-center justify-between gap-3">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center text-white font-bold text-lg shadow-sm">
+              IA
+            </div>
+            <div>
+              <div class="text-xs font-semibold text-blue-600 tracking-wider uppercase">Arquitectura de Computadoras</div>
+              <div class="text-base font-bold text-slate-900 leading-tight">Proyecto Educativo IACO 2026</div>
+            </div>
+          </div>
+
+          <!-- MENÚ DE NAVEGACIÓN -->
+          <nav class="flex items-center gap-1 overflow-x-auto pb-1 md:pb-0">
+            <button onclick="navigateTo('inicio')" id="nav-inicio" class="nav-btn active px-3 py-1.5 rounded-lg text-xs md:text-sm text-slate-700 hover:bg-slate-100 transition whitespace-nowrap">
+              Inicio
+            </button>
+            <button onclick="navigateTo('punto1')" id="nav-punto1" class="nav-btn px-3 py-1.5 rounded-lg text-xs md:text-sm text-slate-700 hover:bg-slate-100 transition whitespace-nowrap">
+              Punto 1: CPU, GPU y NPU
+            </button>
+            <button onclick="navigateTo('punto2')" id="nav-punto2" class="nav-btn px-3 py-1.5 rounded-lg text-xs md:text-sm text-slate-700 hover:bg-slate-100 transition whitespace-nowrap">
+              Punto 2: Almacenamiento
+            </button>
+            <button onclick="navigateTo('punto3')" id="nav-punto3" class="nav-btn px-3 py-1.5 rounded-lg text-xs md:text-sm text-slate-700 hover:bg-slate-100 transition whitespace-nowrap">
+              Punto 3: Workstation IA
+            </button>
+            <button onclick="navigateTo('bibliografia')" id="nav-bibliografia" class="nav-btn px-3 py-1.5 rounded-lg text-xs md:text-sm text-slate-700 hover:bg-slate-100 transition whitespace-nowrap">
+              Bibliografía
+            </button>
+          </nav>
+        </div>
+      </header>
+
+      <!-- ========================================== -->
+      <!-- SECCIÓN: INICIO -->
+      <!-- ========================================== -->
+      <section id="sec-inicio" class="section-content p-6 md:p-10 space-y-8">
+        <!-- Hero Banner -->
+        <div class="bg-gradient-to-br from-slate-900 via-blue-950 to-slate-800 text-white rounded-2xl p-6 md:p-10 shadow-md">
+          <span class="inline-block bg-blue-500/20 text-blue-300 border border-blue-400/30 text-xs px-3 py-1 rounded-full font-semibold uppercase tracking-wider mb-4">
+            Carrera de Inteligencia Artificial y Ciencia de Datos
+          </span>
+          <h1 class="text-2xl md:text-4xl font-extrabold tracking-tight text-white mb-4">
+            Arquitectura de Computadoras: el corazón inteligente de la máquina
+          </h1>
+          <p class="text-slate-300 text-base md:text-lg max-w-3xl leading-relaxed">
+            Este sitio web educativo reúne el desarrollo completo del proyecto grupal de la materia IACO 2026. Analizamos cómo el hardware moderno —desde las unidades de cálculo y el bus de almacenamiento hasta el diseño de estaciones de trabajo— impulsa y limita las cargas de trabajo en inteligencia artificial.
+          </p>
+          <div class="mt-6 pt-6 border-t border-slate-700/60 flex flex-wrap items-center justify-between gap-4 text-xs text-slate-400">
+            <div><strong>Materia:</strong> IACO 2026 &nbsp;|&nbsp; <strong>Profesor:</strong> Emmanuel Galiotti</div>
+            <div class="bg-amber-500/10 text-amber-300 border border-amber-500/30 px-3 py-1 rounded-md">
+              ⚠️ <em>Nota para entrega: completar los nombres de los integrantes del grupo en la portada final.</em>
+            </div>
+          </div>
+        </div>
+
+        <!-- Introducción a los tres puntos -->
+        <div class="space-y-4">
+          <h2 class="text-xl font-bold text-slate-900 border-l-4 border-blue-600 pl-3">
+            Estructura del Trabajo: 3 Ejes Fundamentales
+          </h2>
+          <p class="text-slate-600 text-sm">
+            Explora cada una de las partes en las que se divide el trabajo de investigación con acceso rápido:
+          </p>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-2">
+            <!-- Tarjeta Punto 1 -->
+            <div class="bg-slate-50 border border-slate-200 hover:border-blue-400 rounded-xl p-5 flex flex-col justify-between transition group shadow-sm">
+              <div class="space-y-3">
+                <div class="w-10 h-10 rounded-lg bg-blue-100 text-blue-700 flex items-center justify-center font-bold text-lg group-hover:scale-105 transition">
+                  1
+                </div>
+                <h3 class="font-bold text-slate-900 text-base">Punto 1: CPU, GPU y NPU</h3>
+                <p class="text-slate-600 text-xs leading-relaxed">
+                  Funciones de cada unidad, comparación Panther Lake vs Ryzen AI 400, esquema funcional, rol de la NPU y la GPU RTX 5090 Blackwell.
+                </p>
+              </div>
+              <button onclick="navigateTo('punto1')" class="mt-4 w-full bg-white group-hover:bg-blue-600 group-hover:text-white text-blue-600 font-semibold border border-blue-200 group-hover:border-blue-600 text-xs py-2 rounded-lg transition text-center">
+                Ver Punto 1 &rarr;
+              </button>
+            </div>
+
+            <!-- Tarjeta Punto 2 -->
+            <div class="bg-slate-50 border border-slate-200 hover:border-blue-400 rounded-xl p-5 flex flex-col justify-between transition group shadow-sm">
+              <div class="space-y-3">
+                <div class="w-10 h-10 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold text-lg group-hover:scale-105 transition">
+                  2
+                </div>
+                <h3 class="font-bold text-slate-900 text-base">Punto 2: Almacenamiento</h3>
+                <p class="text-slate-600 text-xs leading-relaxed">
+                  SATA vs NVMe, analogía de la carretera, gráfico comparativo de velocidades en escala logarítmica, PCIe 5.0, DirectStorage, fotónica y ADN.
+                </p>
+              </div>
+              <button onclick="navigateTo('punto2')" class="mt-4 w-full bg-white group-hover:bg-emerald-600 group-hover:text-white text-emerald-600 font-semibold border border-emerald-200 group-hover:border-emerald-600 text-xs py-2 rounded-lg transition text-center">
+                Ver Punto 2 &rarr;
+              </button>
+            </div>
+
+            <!-- Tarjeta Punto 3 -->
+            <div class="bg-slate-50 border border-slate-200 hover:border-blue-400 rounded-xl p-5 flex flex-col justify-between transition group shadow-sm">
+              <div class="space-y-3">
+                <div class="w-10 h-10 rounded-lg bg-purple-100 text-purple-700 flex items-center justify-center font-bold text-lg group-hover:scale-105 transition">
+                  3
+                </div>
+                <h3 class="font-bold text-slate-900 text-base">Punto 3: Workstation de IA</h3>
+                <p class="text-slate-600 text-xs leading-relaxed">
+                  Configuración extrema "Money is No Object" y armado "El Punto Dulce" de hasta USD 800 (USD 797,40) con galería de componentes reales e infografía.
+                </p>
+              </div>
+              <button onclick="navigateTo('punto3')" class="mt-4 w-full bg-white group-hover:bg-purple-600 group-hover:text-white text-purple-600 font-semibold border border-purple-200 group-hover:border-purple-600 text-xs py-2 rounded-lg transition text-center">
+                Ver Punto 3 &rarr;
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Síntesis del objetivo educativo -->
+        <div class="bg-blue-50 border border-blue-200 rounded-xl p-5 text-sm text-slate-700 space-y-2">
+          <div class="font-bold text-blue-900 flex items-center gap-2">
+            <span>🎯</span> Propósito del Sitio y Rigor Académico
+          </div>
+          <p class="text-xs leading-relaxed">
+            Todas las especificaciones técnicas, pruebas de rendimiento y cotizaciones conservan con fidelidad los datos del informe técnico. Se diferencian rigurosamente los datos oficiales de fichas técnicas, las afirmaciones del fabricante en condiciones particulares y las referencias de mercado.
+          </p>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- SECCIÓN: PUNTO 1 -->
+      <!-- ========================================== -->
+      <section id="sec-punto1" class="section-content hidden p-6 md:p-10 space-y-10">
+        <!-- Encabezado de Sección -->
+        <div class="border-b border-slate-200 pb-4">
+          <div class="text-xs font-bold text-blue-600 uppercase tracking-wider">Punto 1</div>
+          <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900">
+            El corazón inteligente de la máquina: CPU, GPU y NPU
+          </h2>
+          <p class="text-slate-600 text-sm mt-2">
+            El rendimiento de una computadora para inteligencia artificial depende del tipo de tarea. Cada unidad de cómputo posee una especialización arquitectónica definida.
+          </p>
+        </div>
+
+        <!-- Conceptos Clave: Rol de cada unidad -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div class="bg-blue-50/70 border border-blue-200 rounded-xl p-4 space-y-2">
+            <div class="flex items-center gap-2 font-bold text-blue-900 text-sm">
+              <span class="w-7 h-7 rounded-md bg-blue-600 text-white flex items-center justify-center text-xs">CPU</span>
+              Unidad Central de Procesamiento
+            </div>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              <strong>Función:</strong> Coordina el sistema, administra la memoria y resuelve tareas secuenciales y generales. Prepara los datos antes de enviarlos a las unidades aceleradoras.
+            </p>
+          </div>
+
+          <div class="bg-purple-50/70 border border-purple-200 rounded-xl p-4 space-y-2">
+            <div class="flex items-center gap-2 font-bold text-purple-900 text-sm">
+              <span class="w-7 h-7 rounded-md bg-purple-600 text-white flex items-center justify-center text-xs">GPU</span>
+              Unidad de Procesamiento Gráfico
+            </div>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              <strong>Función:</strong> Diseñada para ejecutar miles de operaciones matemáticas en paralelo. Es la pieza clave para entrenar, ajustar o inferir modelos grandes (LLMs, difusión).
+            </p>
+          </div>
+
+          <div class="bg-emerald-50/70 border border-emerald-200 rounded-xl p-4 space-y-2">
+            <div class="flex items-center gap-2 font-bold text-emerald-900 text-sm">
+              <span class="w-7 h-7 rounded-md bg-emerald-600 text-white flex items-center justify-center text-xs">NPU</span>
+              Unidad de Procesamiento Neural
+            </div>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              <strong>Función:</strong> Acelera operaciones matriciales frecuentes en inferencia con un consumo eléctrico significativamente menor. Ideal para tareas continuas en portátiles.
+            </p>
+          </div>
+        </div>
+
+        <!-- Tabla Comparativa de Procesadores -->
+        <div class="space-y-3">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+            <h3 class="text-lg font-bold text-slate-900">
+              Comparación de Procesadores: Intel Core Ultra vs. AMD Ryzen AI
+            </h3>
+            <span class="text-xs text-slate-500 font-medium">Fuentes oficiales: [1, 2, 3]</span>
+          </div>
+          
+          <div class="table-container border border-slate-200 rounded-xl shadow-sm">
+            <table class="w-full text-xs sm:text-sm text-left">
+              <thead class="bg-slate-100 text-slate-700 uppercase font-semibold text-xs border-b border-slate-200">
+                <tr>
+                  <th class="p-3">Característica</th>
+                  <th class="p-3 bg-blue-50/50 text-blue-950">Intel Core Ultra X9 388H</th>
+                  <th class="p-3 bg-red-50/50 text-red-950">AMD Ryzen AI 9 HX 470</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-200 text-slate-700">
+                <tr class="hover:bg-slate-50">
+                  <td class="p-3 font-semibold text-slate-900">Arquitectura</td>
+                  <td class="p-3">Panther Lake; diseño híbrido con 16 núcleos: 4 P-cores, 8 E-cores y 4 LP E-cores.</td>
+                  <td class="p-3">Ryzen AI 400 Series; 12 núcleos Zen: 4 Zen 5 y 8 Zen 5c.</td>
+                </tr>
+                <tr class="hover:bg-slate-50">
+                  <td class="p-3 font-semibold text-slate-900">Núcleos e hilos</td>
+                  <td class="p-3 font-medium">16 núcleos / 16 hilos.</td>
+                  <td class="p-3 font-medium">12 núcleos / 24 hilos.</td>
+                </tr>
+                <tr class="hover:bg-slate-50">
+                  <td class="p-3 font-semibold text-slate-900">Frecuencia máxima</td>
+                  <td class="p-3">Hasta 5,1 GHz.</td>
+                  <td class="p-3">Hasta 5,2 GHz.</td>
+                </tr>
+                <tr class="hover:bg-slate-50">
+                  <td class="p-3 font-semibold text-slate-900">Memoria Caché</td>
+                  <td class="p-3">18 MB de Intel Smart Cache.</td>
+                  <td class="p-3">12 MB de caché L2 y 24 MB de caché L3.</td>
+                </tr>
+                <tr class="hover:bg-slate-50">
+                  <td class="p-3 font-semibold text-slate-900">NPU Integrada</td>
+                  <td class="p-3">Intel AI Boost; hasta 50 TOPS (según fabricante) [1].</td>
+                  <td class="p-3">AMD XDNA 2; hasta 55 TOPS (según fabricante) [2, 3].</td>
+                </tr>
+                <tr class="hover:bg-slate-50">
+                  <td class="p-3 font-semibold text-slate-900">Gráficos integrados</td>
+                  <td class="p-3">Intel Arc B390.</td>
+                  <td class="p-3">AMD Radeon 890M.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Glosario de términos técnicos -->
+          <div class="bg-slate-100 rounded-lg p-3 text-xs text-slate-600 space-y-1">
+            <p><strong>Glosario de conceptos técnicos:</strong></p>
+            <ul class="list-disc pl-5 space-y-1">
+              <li><strong>P-cores (Performance):</strong> Diseñados para máximo rendimiento monohilo en tareas pesadas.</li>
+              <li><strong>E-cores (Efficient) y LP E-cores:</strong> Priorizan la eficiencia energética y atienden procesos secundarios o ligeros.</li>
+              <li><strong>Zen 5 y Zen 5c:</strong> Misma microarquitectura de AMD; Zen 5c tiene un empaquetado más compacto para maximizar eficiencia.</li>
+              <li><strong>Núcleos vs. Hilos:</strong> Los núcleos son las unidades físicas de ejecución; los hilos organizan y alternan flujos de tareas.</li>
+              <li><strong>Caché (L2, L3, Smart Cache):</strong> Memoria de altísima velocidad integrada en el silicio que almacena datos inmediatos evitando esperas en RAM.</li>
+              <li><strong>Nota sobre TOPS:</strong> Los valores informados (50 vs 55 TOPS) no corresponden a una prueba estandarizada común, pues varían la precisión y el tipo de operación [1–3].</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- ESQUEMA 1: ARQUITECTURA DE CADA PROCESADOR (SVG FIEL AL DOCUMENTO) -->
+        <div class="space-y-3">
+          <h3 class="text-base md:text-lg font-bold text-slate-900">
+            Esquema simplificado de los bloques principales según fichas de fabricante
+          </h3>
+          <div class="bg-white border border-slate-200 rounded-xl p-4 shadow-sm">
+            <svg viewBox="0 0 920 400" class="w-full h-auto" xmlns="http://www.w3.org/2000/svg" font-family="system-ui, sans-serif">
+              <rect width="920" height="400" fill="#ffffff" rx="12"/>
+              <text x="460" y="32" text-anchor="middle" fill="#334155" font-size="14" font-weight="500">Esquema simplificado de los bloques principales según las fichas de fabricante</text>
+              
+              <!-- Columna Intel -->
+              <text x="240" y="70" text-anchor="middle" fill="#0f172a" font-size="18" font-weight="800">Intel Core Ultra X9 388H</text>
+              <rect x="50" y="100" width="380" height="65" rx="8" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+              <text x="240" y="126" text-anchor="middle" fill="#1e3a8a" font-size="14" font-weight="700">CPU híbrida · 16 núcleos / 16 hilos</text>
+              <text x="240" y="148" text-anchor="middle" fill="#1e40af" font-size="12">4 P-cores + 8 E-cores + 4 LP E-cores</text>
+              
+              <rect x="50" y="185" width="180" height="65" rx="8" fill="#ede9fe" stroke="#7c3aed" stroke-width="2"/>
+              <text x="140" y="212" text-anchor="middle" fill="#4c1d95" font-size="13" font-weight="700">GPU integrada</text>
+              <text x="140" y="233" text-anchor="middle" fill="#5b21b6" font-size="12">Intel Arc B390</text>
+              
+              <rect x="250" y="185" width="180" height="65" rx="8" fill="#ccfbf1" stroke="#0d9488" stroke-width="2"/>
+              <text x="340" y="212" text-anchor="middle" fill="#134e4a" font-size="13" font-weight="700">NPU</text>
+              <text x="340" y="233" text-anchor="middle" fill="#115e59" font-size="12">AI Boost · máx. 50 TOPS</text>
+              
+              <rect x="50" y="270" width="380" height="65" rx="8" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+              <text x="240" y="298" text-anchor="middle" fill="#78350f" font-size="14" font-weight="700">Caché</text>
+              <text x="240" y="320" text-anchor="middle" fill="#92400e" font-size="12">18 MB de Intel Smart Cache</text>
+
+              <!-- Columna AMD -->
+              <text x="680" y="70" text-anchor="middle" fill="#0f172a" font-size="18" font-weight="800">AMD Ryzen AI 9 HX 470</text>
+              <rect x="490" y="100" width="380" height="65" rx="8" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+              <text x="680" y="126" text-anchor="middle" fill="#1e3a8a" font-size="14" font-weight="700">CPU Zen · 12 núcleos / 24 hilos</text>
+              <text x="680" y="148" text-anchor="middle" fill="#1e40af" font-size="12">4 Zen 5 + 8 Zen 5c</text>
+              
+              <rect x="490" y="185" width="180" height="65" rx="8" fill="#ede9fe" stroke="#7c3aed" stroke-width="2"/>
+              <text x="580" y="212" text-anchor="middle" fill="#4c1d95" font-size="13" font-weight="700">GPU integrada</text>
+              <text x="580" y="233" text-anchor="middle" fill="#5b21b6" font-size="12">AMD Radeon 890M</text>
+              
+              <rect x="690" y="185" width="180" height="65" rx="8" fill="#ccfbf1" stroke="#0d9488" stroke-width="2"/>
+              <text x="780" y="212" text-anchor="middle" fill="#134e4a" font-size="13" font-weight="700">NPU</text>
+              <text x="780" y="233" text-anchor="middle" fill="#115e59" font-size="12">XDNA 2 · máx. 55 TOPS</text>
+              
+              <rect x="490" y="270" width="380" height="65" rx="8" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+              <text x="680" y="298" text-anchor="middle" fill="#78350f" font-size="14" font-weight="700">Caché</text>
+              <text x="680" y="320" text-anchor="middle" fill="#92400e" font-size="12">12 MB L2 + 24 MB L3</text>
+              
+              <text x="460" y="375" text-anchor="middle" fill="#64748b" font-size="11">Es un esquema funcional, no un plano físico del silicio. Fuentes: Fichas de fabricante [1–3].</text>
+            </svg>
+          </div>
+        </div>
+
+        <!-- ESQUEMA 2: CÓMO SE REPARTEN EL TRABAJO (SVG) -->
+        <div class="space-y-3">
+          <h3 class="text-base md:text-lg font-bold text-slate-900">
+            Distribución de cargas de trabajo: CPU, GPU y NPU
+          </h3>
+          <div class="bg-white border border-slate-200 rounded-xl p-4 shadow-sm">
+            <svg viewBox="0 0 920 230" class="w-full h-auto" xmlns="http://www.w3.org/2000/svg" font-family="system-ui, sans-serif">
+              <rect width="920" height="230" fill="#ffffff" rx="12"/>
+              <text x="460" y="28" text-anchor="middle" fill="#334155" font-size="13" font-weight="500">Cada unidad se usa según el tipo de carga y el soporte del programa</text>
+              
+              <!-- CPU -->
+              <rect x="40" y="60" width="240" height="110" rx="10" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
+              <text x="160" y="98" text-anchor="middle" fill="#0369a1" font-size="18" font-weight="800">CPU</text>
+              <text x="160" y="125" text-anchor="middle" fill="#0f172a" font-size="12" font-weight="600">Coordina el sistema</text>
+              <text x="160" y="145" text-anchor="middle" fill="#475569" font-size="11">Prepara datos y tareas</text>
+              
+              <line x1="290" y1="115" x2="340" y2="115" stroke="#475569" stroke-width="2"/>
+              <polygon points="290,115 298,110 298,120" fill="#475569"/>
+              <polygon points="340,115 332,110 332,120" fill="#475569"/>
+
+              <!-- GPU -->
+              <rect x="350" y="60" width="240" height="110" rx="10" fill="#f3e8ff" stroke="#9333ea" stroke-width="2"/>
+              <text x="470" y="98" text-anchor="middle" fill="#7e22ce" font-size="18" font-weight="800">GPU</text>
+              <text x="470" y="125" text-anchor="middle" fill="#0f172a" font-size="12" font-weight="600">Paralelismo alto</text>
+              <text x="470" y="145" text-anchor="middle" fill="#475569" font-size="11">Entrenamiento e imágenes</text>
+
+              <line x1="600" y1="115" x2="650" y2="115" stroke="#475569" stroke-width="2"/>
+              <polygon points="600,115 608,110 608,120" fill="#475569"/>
+              <polygon points="650,115 642,110 642,120" fill="#475569"/>
+
+              <!-- NPU -->
+              <rect x="660" y="60" width="240" height="110" rx="10" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+              <text x="780" y="98" text-anchor="middle" fill="#15803d" font-size="18" font-weight="800">NPU</text>
+              <text x="780" y="125" text-anchor="middle" fill="#0f172a" font-size="12" font-weight="600">Inferencia compatible</text>
+              <text x="780" y="145" text-anchor="middle" fill="#475569" font-size="11">Menor consumo sostenido</text>
+
+              <text x="460" y="205" text-anchor="middle" fill="#64748b" font-size="11">Esquema conceptual: la NPU no sustituye a la GPU para entrenar modelos grandes.</text>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Rol de la NPU y Límites -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="bg-slate-50 border border-slate-200 rounded-xl p-5 space-y-3">
+            <h4 class="font-bold text-slate-900 text-sm flex items-center gap-2">
+              <span class="text-blue-600">⚡</span> ¿Para qué sirve la NPU y cuáles son sus límites?
+            </h4>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              Una <strong>NPU (Neural Processing Unit)</strong> acelera operaciones frecuentes en redes neuronales, sobre todo <em>inferencia</em>: cuando el modelo previamente entrenado procesa datos de entrada y genera una salida en tiempo real.
+            </p>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              <strong>Límites:</strong> No sustituye a la GPU para entrenar modelos grandes. Además, la ventaja de consumo depende del chip, del modelo y del software compatible; no puede deducirse únicamente del número de TOPS.
+            </p>
+          </div>
+
+          <div class="bg-slate-50 border border-slate-200 rounded-xl p-5 space-y-3">
+            <h4 class="font-bold text-slate-900 text-sm flex items-center gap-2">
+              <span class="text-indigo-600">🎥</span> Caso real: Windows Studio Effects
+            </h4>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              Ofrece encuadre automático, contacto visual, desenfoque de fondo y aislamiento de voz durante videollamadas.
+            </p>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              Microsoft señala que estas funciones requieren equipos <strong>Copilot+ PC</strong> con NPU superior a 40 TOPS [21]. Esto evidencia cómo una NPU sostiene inferencias interactivas constantes sin agotar la batería ni saturar la CPU/GPU.
+            </p>
+          </div>
+        </div>
+
+        <!-- GPU NVIDIA RTX 5090 Blackwell y Rendimiento -->
+        <div class="space-y-4">
+          <h3 class="text-lg font-bold text-slate-900">
+            GPU de alto rendimiento: NVIDIA GeForce RTX 5090
+          </h3>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            Basada en la arquitectura <strong>Blackwell</strong>, cuenta con <strong>21.760 núcleos CUDA</strong> y <strong>32 GB de memoria GDDR7</strong> [4]. Los núcleos CUDA ejecutan operaciones paralelas masivas; los Tensor Cores de 5ª generación aceleran el cómputo matricial con cuantización en menor precisión como <strong>FP4</strong>. La memoria de video (VRAM) es determinante porque limita el tamaño del modelo que cabe directamente en la tarjeta.
+          </p>
+
+          <div class="table-container border border-slate-200 rounded-xl shadow-sm">
+            <table class="w-full text-xs sm:text-sm text-left">
+              <thead class="bg-slate-100 text-slate-700 uppercase font-semibold text-xs border-b border-slate-200">
+                <tr>
+                  <th class="p-3">Prueba publicada</th>
+                  <th class="p-3">Resultado informado</th>
+                  <th class="p-3">Qué permite concluir</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-200 text-slate-700">
+                <tr class="hover:bg-slate-50">
+                  <td class="p-3 font-semibold text-slate-900">RTX 5090 · FLUX.1-dev, 30 pasos</td>
+                  <td class="p-3 font-mono text-blue-700">3.853 ms (FP4, precisión mixta)</td>
+                  <td class="p-3">Ejemplo concreto de inferencia de imagen; depende del flujo TensorRT/Model Optimizer. Resultado del fabricante [6].</td>
+                </tr>
+                <tr class="hover:bg-slate-50">
+                  <td class="p-3 font-semibold text-slate-900">RTX 5090 · FLUX.1-schnell, 4 pasos</td>
+                  <td class="p-3 font-mono text-blue-700">591 ms (FP4, precisión mixta)</td>
+                  <td class="p-3">Modelo y número de pasos distintos: no comparar directamente con FLUX.1-dev. Resultado del fabricante [6].</td>
+                </tr>
+                <tr class="hover:bg-slate-50">
+                  <td class="p-3 font-semibold text-slate-900">Core Ultra X9 388H vs 9 386H · Llama 2 7B</td>
+                  <td class="p-3 font-mono text-purple-700">Hasta 2,2× en tiempo hasta primer token</td>
+                  <td class="p-3">Resultado MLPerf GPU/Windows ML publicado por Intel; equipos y modos de energía distintos [5].</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="bg-amber-50 border border-amber-200 rounded-lg p-3 text-xs text-amber-900">
+            <strong>Aclaración metodológica rigurosa:</strong> No se encontró una medición pública comparable que enfrente estas dos NPU con la RTX 5090 en la misma tarea y bajo idénticas condiciones. Por tanto, la diferencia de eficiencia se presenta como una función intrínseca esperada de cada tipo de unidad, no como un porcentaje medido empíricamente para estos modelos.
+          </div>
+        </div>
+
+        <!-- Conclusión: ¿Qué unidad conviene? -->
+        <div class="table-container border border-slate-200 rounded-xl shadow-sm">
+          <table class="w-full text-xs sm:text-sm text-left">
+            <thead class="bg-slate-800 text-white uppercase font-semibold text-xs">
+              <tr>
+                <th class="p-3">Componente</th>
+                <th class="p-3">Dónde aporta más</th>
+                <th class="p-3">Ejemplo de uso</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-200 text-slate-700">
+              <tr class="hover:bg-slate-50">
+                <td class="p-3 font-bold text-slate-900">CPU</td>
+                <td class="p-3">Coordina el sistema, prepara datos y ejecuta tareas generales.</td>
+                <td class="p-3">Cargar el conjunto de datos y controlar el flujo del programa.</td>
+              </tr>
+              <tr class="hover:bg-slate-50">
+                <td class="p-3 font-bold text-slate-900">GPU</td>
+                <td class="p-3">Operaciones paralelas exigentes; entrenamiento, ajuste fino e inferencia de modelos grandes.</td>
+                <td class="p-3">Generar imágenes con Stable Diffusion o FLUX en una RTX.</td>
+              </tr>
+              <tr class="hover:bg-slate-50">
+                <td class="p-3 font-bold text-slate-900">NPU</td>
+                <td class="p-3">Inferencia compatible que conviene ejecutar de forma local, continua y eficiente.</td>
+                <td class="p-3">Efectos de cámara, reducción de ruido o asistentes integrados en laptops.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Galería de aplicaciones reales (3 APLICACIONES) -->
+        <div class="space-y-4">
+          <div class="flex items-center justify-between">
+            <h3 class="text-lg font-bold text-slate-900">
+              Galería de aplicaciones reales de GPU y NPU
+            </h3>
+            <span class="text-xs font-semibold text-blue-700 bg-blue-50 border border-blue-200 px-2 py-0.5 rounded">
+              Casos Reales y Autorizados
+            </span>
+          </div>
+          
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- Aplicación 1: FLUX / Stable Diffusion -->
+            <div class="bg-white border border-slate-200 rounded-xl p-4 flex flex-col justify-between space-y-3 shadow-sm hover:border-blue-400 transition">
+              <div class="h-44 bg-slate-900 rounded-lg overflow-hidden flex items-center justify-center border border-slate-200 relative group">
+                <div class="p-4 text-center text-white space-y-1">
+                  <div class="text-xs font-bold text-blue-400 tracking-wider uppercase">FLUX.1 [dev] / Stable Diffusion</div>
+                  <div class="text-[11px] text-slate-300">Generación de imágenes por difusión local</div>
+                  <div class="mt-2 text-[10px] bg-blue-600/30 border border-blue-400/40 text-blue-200 px-2 py-0.5 rounded inline-block font-mono">
+                    Aceleración GPU · TensorRT FP4
+                  </div>
+                </div>
+              </div>
+              <div class="text-xs space-y-1.5">
+                <div class="font-bold text-slate-900">1. Generación de imágenes: FLUX.1 / Stable Diffusion · GPU</div>
+                <p class="text-slate-600 text-[11px] leading-tight">
+                  <strong>Epígrafe:</strong> La GPU ejecuta el modelo de difusión en paralelo y genera imágenes localmente. En tarjetas Blackwell con TensorRT y FP4, se reducen los tiempos a milisegundos [6].
+                </p>
+                <div class="text-[10px] text-slate-500 pt-1 border-t border-slate-100">
+                  <strong>Fuente:</strong> <a href="https://developer.nvidia.com/blog/nvidia-tensorrt-unlocks-fp4-image-generation-for-nvidia-blackwell-geforce-rtx-50-series-gpus/" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline">NVIDIA Developer Blog [6]</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Aplicación 2: Windows Studio Effects -->
+            <div class="bg-white border border-slate-200 rounded-xl p-4 flex flex-col justify-between space-y-3 shadow-sm hover:border-emerald-400 transition">
+              <div class="h-44 bg-slate-100 rounded-lg overflow-hidden flex items-center justify-center border border-slate-200 p-2">
+                <div class="text-center p-3 space-y-2">
+                  <div class="w-10 h-10 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center mx-auto text-lg">📹</div>
+                  <div class="text-xs font-bold text-slate-800">Windows Studio Effects Panel</div>
+                  <div class="text-[10px] text-slate-500 leading-tight">Encuadre automático · Contacto visual · Desenfoque · Enfoque de voz</div>
+                  <div class="text-[9px] text-emerald-700 font-semibold bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                    NPU Copilot+ PC (>40 TOPS)
+                  </div>
+                </div>
+              </div>
+              <div class="text-xs space-y-1.5">
+                <div class="font-bold text-slate-900">2. Videollamadas en tiempo real: Windows Studio Effects · NPU</div>
+                <p class="text-slate-600 text-[11px] leading-tight">
+                  <strong>Epígrafe:</strong> Aplica desenfoque, encuadre de cámara y aislamiento acústico interactivo continuo descargando a la CPU y GPU [21].
+                </p>
+                <div class="text-[10px] text-slate-500 pt-1 border-t border-slate-100">
+                  <strong>Fuente:</strong> <a href="https://support.microsoft.com/en-us/windows/ai/ai-features/windows-studio-effects" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline">Microsoft Support [21]</a> &amp; <a href="https://learn.microsoft.com/es-es/windows/apps/develop/windows-integration/windows-studio-effects" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline">Microsoft Learn</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Aplicación 3: Edición de video GPU -->
+            <div class="bg-white border border-slate-200 rounded-xl p-4 flex flex-col justify-between space-y-3 shadow-sm hover:border-purple-400 transition">
+              <div class="h-44 bg-slate-900 rounded-lg overflow-hidden flex items-center justify-center border border-slate-200 p-2">
+                <div class="text-center p-3 space-y-2 text-white">
+                  <div class="w-10 h-10 rounded-full bg-purple-900/60 text-purple-300 flex items-center justify-center mx-auto text-lg">🎬</div>
+                  <div class="text-xs font-bold text-purple-300">DaVinci Resolve Neural Engine</div>
+                  <div class="text-[10px] text-slate-300 leading-tight">Aislamiento de voz, Magic Mask y reencuadre neural acelerado por GPU</div>
+                  <div class="text-[9px] text-purple-200 font-semibold bg-purple-950 px-2 py-0.5 rounded border border-purple-700">
+                    Aceleración CUDA / Tensor Cores
+                  </div>
+                </div>
+              </div>
+              <div class="text-xs space-y-1.5">
+                <div class="font-bold text-slate-900">3. Edición y mejora de video: DaVinci Resolve · GPU</div>
+                <p class="text-slate-600 text-[11px] leading-tight">
+                  <strong>Epígrafe:</strong> La GPU ejecuta el motor neuronal de edición para segmentación de objetos, reducción de ruido temporal y escalado inteligente en tiempo real.
+                </p>
+                <div class="text-[10px] text-slate-500 pt-1 border-t border-slate-100">
+                  <strong>Fuente:</strong> <a href="https://www.blackmagicdesign.com/products/davinciresolve" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline">Blackmagic Design DaVinci Resolve</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- SECCIÓN: PUNTO 2 -->
+      <!-- ========================================== -->
+      <section id="sec-punto2" class="section-content hidden p-6 md:p-10 space-y-10">
+        <!-- Encabezado de Sección -->
+        <div class="border-b border-slate-200 pb-4">
+          <div class="text-xs font-bold text-emerald-600 uppercase tracking-wider">Punto 2</div>
+          <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900">
+            La superautopista de los datos: Almacenamiento y velocidades
+          </h2>
+          <p class="text-slate-600 text-sm mt-2">
+            El almacenamiento conserva el sistema operativo, los programas, los modelos y los conjuntos de datos. Un acceso rápido reduce el tiempo de carga, aunque el SSD no reemplaza la RAM ni la VRAM.
+          </p>
+        </div>
+
+        <!-- La batalla de los SSD: SATA vs NVMe -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="bg-slate-50 border border-slate-200 rounded-xl p-5 space-y-3">
+            <h3 class="font-bold text-slate-900 text-sm flex items-center gap-2">
+              <span class="text-blue-600">🔌</span> SATA vs. NVMe: Protocolo e Interfaz
+            </h3>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              <strong>SATA</strong> es una interfaz tradicional de conexión nacida para discos mecánicos. <strong>NVMe</strong> es un protocolo optimizado para memoria de estado sólido conectado directamente mediante <strong>PCI Express (PCIe)</strong>.
+            </p>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              SATA III ofrece hasta 6 Gb/s (~600 MB/s teóricos brutos), limitando los discos en torno a los 550 MB/s. NVMe supera con creces estas cotas al aprovechar múltiples líneas de bus de alta velocidad.
+            </p>
+          </div>
+
+          <div class="bg-amber-50/70 border border-amber-200 rounded-xl p-5 space-y-3">
+            <h3 class="font-bold text-amber-950 text-sm flex items-center gap-2">
+              <span>🛣️</span> La Analogía de la Carretera
+            </h3>
+            <p class="text-xs text-slate-700 leading-relaxed">
+              Se suele comparar a <em>SATA como una carretera de 2 carriles</em> y a <em>NVMe como una autopista de 8 carriles</em>.
+            </p>
+            <div class="bg-white/80 border border-amber-300 rounded p-2 text-[11px] text-amber-900">
+              <strong>Aclaración conceptual:</strong> Es una comparación visual pedagógica para ilustrar el ancho de banda, no una descripción física literal. En la práctica, las unidades SSD M.2 NVMe de consumo suelen utilizar <strong>hasta 4 carriles PCIe (x4)</strong>.
+            </div>
+          </div>
+        </div>
+
+        <!-- Tabla de Unidades Comparadas -->
+        <div class="space-y-3">
+          <h3 class="text-base md:text-lg font-bold text-slate-900">
+            Velocidades Secuenciales Declaradas en Fichas Oficiales
+          </h3>
+          <div class="table-container border border-slate-200 rounded-xl shadow-sm">
+            <table class="w-full text-xs sm:text-sm text-left">
+              <thead class="bg-slate-100 text-slate-700 uppercase font-semibold text-xs border-b border-slate-200">
+                <tr>
+                  <th class="p-3">Unidad comparada</th>
+                  <th class="p-3 text-blue-900">Lectura secuencial</th>
+                  <th class="p-3 text-amber-900">Escritura secuencial</th>
+                  <th class="p-3">Naturaleza de la cifra</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-200 text-slate-700">
+                <tr class="hover:bg-slate-50">
+                  <td class="p-3 font-semibold text-slate-900">HDD Seagate BarraCuda 3 TB</td>
+                  <td class="p-3 font-mono">156 MB/s</td>
+                  <td class="p-3 font-mono">156 MB/s</td>
+                  <td class="p-3 text-slate-500">Promedio informado en la ficha consultada [9]</td>
+                </tr>
+                <tr class="hover:bg-slate-50">
+                  <td class="p-3 font-semibold text-slate-900">SSD SATA Samsung 870 EVO 1 TB</td>
+                  <td class="p-3 font-mono text-blue-700">Hasta 560 MB/s</td>
+                  <td class="p-3 font-mono text-amber-700">Hasta 530 MB/s</td>
+                  <td class="p-3 text-slate-500">Máximos secuenciales del fabricante [10]</td>
+                </tr>
+                <tr class="hover:bg-slate-50">
+                  <td class="p-3 font-semibold text-slate-900">SSD NVMe Samsung 9100 PRO PCIe 5.0 4 TB</td>
+                  <td class="p-3 font-mono font-bold text-blue-800">Hasta 14.800 MB/s</td>
+                  <td class="p-3 font-mono font-bold text-amber-800">Hasta 13.400 MB/s</td>
+                  <td class="p-3 text-slate-500">Máximos secuenciales del fabricante [11]</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Ejemplo de Carga de Dataset de 100 GB -->
+        <div class="bg-gradient-to-r from-blue-900 to-slate-900 text-white rounded-xl p-5 space-y-3 shadow-sm">
+          <div class="flex items-center justify-between">
+            <h4 class="font-bold text-white text-sm md:text-base flex items-center gap-2">
+              <span>⏱️</span> Ejemplo práctico: Cargar un conjunto de datos de 100 GB (100.000 MB)
+            </h4>
+            <span class="text-xs bg-blue-500/30 px-2 py-0.5 rounded text-blue-200">Cálculo teórico secuencial</span>
+          </div>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            Se calcula dividiendo el tamaño del archivo por la tasa de lectura secuencial informada:
+          </p>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-1">
+            <div class="bg-white/10 rounded-lg p-3 text-center border border-white/10">
+              <div class="text-slate-400 text-xs">HDD BarraCuda (156 MB/s)</div>
+              <div class="text-lg md:text-xl font-mono font-bold text-amber-300 mt-1">10 min 41 s</div>
+              <div class="text-[10px] text-slate-400 mt-0.5">(100.000 / 156 ≈ 641 s)</div>
+            </div>
+            <div class="bg-white/10 rounded-lg p-3 text-center border border-white/10">
+              <div class="text-slate-400 text-xs">SSD SATA 870 EVO (560 MB/s)</div>
+              <div class="text-lg md:text-xl font-mono font-bold text-blue-300 mt-1">2 min 59 s</div>
+              <div class="text-[10px] text-slate-400 mt-0.5">(100.000 / 560 ≈ 179 s)</div>
+            </div>
+            <div class="bg-white/10 rounded-lg p-3 text-center border border-white/10">
+              <div class="text-slate-400 text-xs">NVMe PCIe 5.0 (14.800 MB/s)</div>
+              <div class="text-lg md:text-xl font-mono font-bold text-emerald-300 mt-1">7 segundos</div>
+              <div class="text-[10px] text-slate-400 mt-0.5">(100.000 / 14.800 ≈ 6,76 s)</div>
+            </div>
+          </div>
+          <p class="text-[11px] text-slate-400 italic">
+            * Nota: Estimación puramente teórica secuencial. En situaciones reales el tiempo depende de la fragmentación, cantidad de archivos pequeños, sistema operativo, temperatura y procesador.
+          </p>
+        </div>
+
+        <!-- GRÁFICO DE LECTURA Y ESCRITURA EN ESCALA LOGARÍTMICA (SVG NÍTIDO Y LEGIBLE) -->
+        <div class="space-y-3">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+            <h3 class="text-base md:text-lg font-bold text-slate-900">
+              Gráfico Comparativo de Velocidades (Escala Logarítmica)
+            </h3>
+            <div class="flex items-center gap-4 text-xs font-semibold">
+              <span class="flex items-center gap-1.5"><span class="w-3.5 h-3.5 bg-[#2b6cb0] rounded-sm"></span> Lectura (MB/s)</span>
+              <span class="flex items-center gap-1.5"><span class="w-3.5 h-3.5 bg-[#dd6b20] rounded-sm"></span> Escritura (MB/s)</span>
+            </div>
+          </div>
+
+          <div class="bg-white border border-slate-200 rounded-xl p-4 shadow-sm">
+            <svg viewBox="0 0 920 440" class="w-full h-auto" xmlns="http://www.w3.org/2000/svg" font-family="system-ui, sans-serif">
+              <rect width="920" height="440" fill="#ffffff" rx="12"/>
+              <line x1="120" y1="350" x2="880" y2="350" stroke="#e2e8f0" stroke-width="1.5"/>
+              <text x="110" y="354" text-anchor="end" fill="#64748b" font-size="12" font-family="monospace">10² (100)</text>
+
+              <line x1="120" y1="215" x2="880" y2="215" stroke="#e2e8f0" stroke-width="1.5"/>
+              <text x="110" y="219" text-anchor="end" fill="#64748b" font-size="12" font-family="monospace">10³ (1.000)</text>
+
+              <line x1="120" y1="80" x2="880" y2="80" stroke="#e2e8f0" stroke-width="1.5"/>
+              <text x="110" y="84" text-anchor="end" fill="#64748b" font-size="12" font-family="monospace">10⁴ (10.000)</text>
+
+              <text x="-215" y="35" transform="rotate(-90)" text-anchor="middle" fill="#334155" font-size="13" font-weight="600">
+                Velocidad secuencial (MB/s, escala logarítmica)
+              </text>
+
+              <!-- HDD -->
+              <rect x="180" y="324" width="70" height="26" fill="#2b6cb0" rx="3"/>
+              <text x="215" y="315" text-anchor="middle" fill="#0f172a" font-size="12" font-weight="700">156</text>
+              <rect x="255" y="324" width="70" height="26" fill="#dd6b20" rx="3"/>
+              <text x="290" y="315" text-anchor="middle" fill="#0f172a" font-size="12" font-weight="700">156</text>
+              <text x="252" y="380" text-anchor="middle" fill="#0f172a" font-size="13" font-weight="700">HDD</text>
+              <text x="252" y="398" text-anchor="middle" fill="#475569" font-size="12">BarraCuda 3 TB</text>
+
+              <!-- SATA SSD -->
+              <rect x="440" y="249" width="70" height="101" fill="#2b6cb0" rx="3"/>
+              <text x="475" y="240" text-anchor="middle" fill="#0f172a" font-size="12" font-weight="700">560</text>
+              <rect x="515" y="252" width="70" height="98" fill="#dd6b20" rx="3"/>
+              <text x="550" y="243" text-anchor="middle" fill="#0f172a" font-size="12" font-weight="700">530</text>
+              <text x="512" y="380" text-anchor="middle" fill="#0f172a" font-size="13" font-weight="700">SATA SSD</text>
+              <text x="512" y="398" text-anchor="middle" fill="#475569" font-size="12">870 EVO 1 TB</text>
+
+              <!-- NVMe PCIe 5.0 -->
+              <rect x="700" y="57" width="70" height="293" fill="#2b6cb0" rx="3"/>
+              <text x="735" y="47" text-anchor="middle" fill="#0f172a" font-size="12" font-weight="700">14.800</text>
+              <rect x="775" y="63" width="70" height="287" fill="#dd6b20" rx="3"/>
+              <text x="810" y="53" text-anchor="middle" fill="#0f172a" font-size="12" font-weight="700">13.400</text>
+              <text x="772" y="380" text-anchor="middle" fill="#0f172a" font-size="13" font-weight="700">NVMe PCIe 5.0</text>
+              <text x="772" y="398" text-anchor="middle" fill="#475569" font-size="12">9100 PRO 4 TB</text>
+            </svg>
+          </div>
+          <p class="text-xs text-slate-500 leading-relaxed">
+            <strong>Figura:</strong> Velocidades secuenciales de fichas de producto; HDD 156 MB/s según el valor promedio indicado en la ficha [9], Samsung 870 EVO y 9100 PRO según máximos secuenciales del fabricante [10, 11]. La escala vertical es logarítmica para permitir la visualización proporcional de magnitudes dispares (desde 156 hasta 14.800 MB/s).
+          </p>
+        </div>
+
+        <!-- Tecnologías de Frontera y Futuro -->
+        <div class="space-y-4">
+          <h3 class="text-base md:text-lg font-bold text-slate-900">
+            Mirando al horizonte: Tecnologías Emergentes
+          </h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 space-y-2">
+              <h4 class="font-bold text-slate-900 text-sm">⚡ PCIe 5.0</h4>
+              <p class="text-xs text-slate-600 leading-relaxed">
+                Duplica la tasa de transferencia por carril frente a PCIe 4.0 (32 GT/s frente a 16 GT/s). En un SSD compatible eleva las tasas secuenciales por encima de los 14.000 MB/s, aunque su rendimiento efectivo depende de la temperatura y la carga [7, 11].
+              </p>
+            </div>
+
+            <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 space-y-2">
+              <h4 class="font-bold text-slate-900 text-sm">🎮 Microsoft DirectStorage</h4>
+              <p class="text-xs text-slate-600 leading-relaxed">
+                API diseñada para transferir datos directamente desde el almacenamiento a la VRAM sin pasar por descompresión de CPU. En IA puede facilitar la carga veloz de pesos de modelos si el framework la integra, pero hoy no acelera automáticamente cualquier programa de IA [8].
+              </p>
+            </div>
+
+            <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 space-y-2">
+              <h4 class="font-bold text-slate-900 text-sm">💡 Fotónica Integrada</h4>
+              <p class="text-xs text-slate-600 leading-relaxed">
+                Circuitos ópticos que usan fotones en vez de electrones para operaciones matriciales con latencia ultra-baja y altísima velocidad. Cuenta con prototipos experimentales (Nature), pero enfrenta retos de escalabilidad y fabricación masiva [18, 19].
+              </p>
+            </div>
+
+            <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 space-y-2">
+              <h4 class="font-bold text-slate-900 text-sm">🧬 Cómputo y Almacenamiento con ADN</h4>
+              <p class="text-xs text-slate-600 leading-relaxed">
+                Uso de secuencias químicas de nucleótidos para archivo de densidades masivas por milímetro cúbico. Es un campo emergente de largo plazo; los tiempos de síntesis y secuenciación impiden que sea un reemplazo doméstico hoy [20].
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recomendación Simple -->
+        <div class="table-container border border-slate-200 rounded-xl shadow-sm">
+          <table class="w-full text-xs sm:text-sm text-left">
+            <thead class="bg-emerald-800 text-white uppercase font-semibold text-xs">
+              <tr>
+                <th class="p-3">Uso previsto</th>
+                <th class="p-3">Recomendación técnica simple</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-200 text-slate-700">
+              <tr class="hover:bg-slate-50">
+                <td class="p-3 font-semibold text-slate-900">Guardar archivos grandes o copias de seguridad con bajo costo</td>
+                <td class="p-3">HDD tradicional.</td>
+              </tr>
+              <tr class="hover:bg-slate-50">
+                <td class="p-3 font-semibold text-slate-900">Mejorar una PC básica sin gastar tanto presupuesto</td>
+                <td class="p-3">SSD SATA.</td>
+              </tr>
+              <tr class="hover:bg-slate-50">
+                <td class="p-3 font-semibold text-slate-900">Cargar modelos y grandes conjuntos de datos con la máxima rapidez</td>
+                <td class="p-3 font-medium text-emerald-800">SSD NVMe, si la placa madre y la plataforma son compatibles.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- SECCIÓN: PUNTO 3 -->
+      <!-- ========================================== -->
+      <section id="sec-punto3" class="section-content hidden p-6 md:p-10 space-y-10">
+        <!-- Encabezado de Sección -->
+        <div class="border-b border-slate-200 pb-4">
+          <div class="text-xs font-bold text-purple-600 uppercase tracking-wider">Punto 3</div>
+          <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900">
+            El diseño maestro: Workstations de Inteligencia Artificial
+          </h2>
+          <p class="text-slate-600 text-sm mt-2">
+            <strong>Perfil profesional elegido:</strong> Artista de IA generativa que crea imágenes y prueba modelos localmente. Requiere abundante VRAM, memoria del sistema para multitarea y almacenamiento veloz para modelos pesados.
+          </p>
+        </div>
+
+        <!-- CONFIGURACIÓN 1: MONEY IS NO OBJECT -->
+        <div class="space-y-4">
+          <div class="flex items-center justify-between">
+            <h3 class="text-lg md:text-xl font-bold text-slate-900 flex items-center gap-2">
+              <span class="text-purple-600">💎</span> Configuración "Money is No Object"
+            </h3>
+            <span class="text-xs bg-purple-100 text-purple-800 font-semibold px-2.5 py-1 rounded-full">
+              Sin límite de presupuesto
+            </span>
+          </div>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            Propuesta profesional extrema orientada a investigación de vanguardia, producción industrial y ciencia de datos pesada. Excede lo necesario para un uso escolar pero ejemplifica el techo tecnológico actual.
+          </p>
+
+          <div class="table-container border border-slate-200 rounded-xl shadow-sm">
+            <table class="w-full text-xs sm:text-sm text-left">
+              <thead class="bg-slate-100 text-slate-700 uppercase font-semibold text-xs border-b border-slate-200">
+                <tr>
+                  <th class="p-3">Componente</th>
+                  <th class="p-3">Elección</th>
+                  <th class="p-3">Por qué se elige (Justificación técnica)</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-200 text-slate-700">
+                <tr class="hover:bg-slate-50">
+                  <td class="p-3 font-semibold text-slate-900">CPU</td>
+                  <td class="p-3 font-bold text-purple-900">AMD Ryzen Threadripper PRO 9995WX</td>
+                  <td class="p-3">96 núcleos y 192 hilos para tareas masivas en paralelo; consumo nominal de 350 W [13].</td>
+                </tr>
+                <tr class="hover:bg-slate-50">
+                  <td class="p-3 font-semibold text-slate-900">GPU</td>
+                  <td class="p-3 font-bold text-purple-900">NVIDIA RTX PRO 6000 Blackwell Workstation (96 GB)</td>
+                  <td class="p-3">96 GB GDDR7 con corrección de errores ECC y Tensor Cores de 5ª gen; orientada a ciencia de datos y modelos masivos [15].</td>
+                </tr>
+                <tr class="hover:bg-slate-50">
+                  <td class="p-3 font-semibold text-slate-900">Placa madre</td>
+                  <td class="p-3 font-medium">ASUS Pro WS WRX90E-SAGE SE</td>
+                  <td class="p-3">Compatible con Threadripper PRO; 8 canales DDR5 ECC RDIMM y ranuras PCIe 5.0 [14].</td>
+                </tr>
+                <tr class="hover:bg-slate-50">
+                  <td class="p-3 font-semibold text-slate-900">Memoria RAM</td>
+                  <td class="p-3 font-medium">512 GB DDR5 ECC RDIMM (8 × 64 GB)</td>
+                  <td class="p-3">Aprovecha el ancho de banda octo-canal y permite cargar en memoria conjuntos de datos inmensos [14].</td>
+                </tr>
+                <tr class="hover:bg-slate-50">
+                  <td class="p-3 font-semibold text-slate-900">Almacenamiento</td>
+                  <td class="p-3 font-medium">2 × Samsung 9100 PRO NVMe PCIe 5.0 de 4 TB</td>
+                  <td class="p-3">Separa sistema y programas de proyectos de datos; hasta 14.800/13.400 MB/s secuenciales cada unidad [11].</td>
+                </tr>
+                <tr class="hover:bg-slate-50">
+                  <td class="p-3 font-semibold text-slate-900">Fuente de poder</td>
+                  <td class="p-3 font-medium">be quiet! Dark Power Pro 13 (1600 W)</td>
+                  <td class="p-3">Conectores nativos 12V-2x6 y margen eléctrico robusto para evitar caídas de tensión bajo carga plena [29].</td>
+                </tr>
+                <tr class="hover:bg-slate-50">
+                  <td class="p-3 font-semibold text-slate-900">Refrigeración</td>
+                  <td class="p-3 font-medium">Noctua NH-U14S TR5-SP6</td>
+                  <td class="p-3">Diseñado para sTR5 y listado oficialmente como compatible con el TDP del 9995WX [30].</td>
+                </tr>
+                <tr class="hover:bg-slate-50">
+                  <td class="p-3 font-semibold text-slate-900">Gabinete</td>
+                  <td class="p-3 font-medium">Fractal Design Define 7 XL</td>
+                  <td class="p-3">Formato Full Tower con soporte nativo para placas SSI-EEB y excelente flujo térmico [31].</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- CONFIGURACIÓN 2: EL PUNTO DULCE (LANDING PAGE HASTA USD 800) -->
+        <div class="border-2 border-blue-500 rounded-2xl p-6 md:p-8 bg-white space-y-8 shadow-md">
+          <!-- Hero de la Landing Page -->
+          <div class="bg-gradient-to-r from-blue-900 to-indigo-900 text-white rounded-xl p-6 text-center space-y-3">
+            <span class="inline-block bg-emerald-400 text-slate-950 text-xs px-3 py-1 rounded-full font-bold uppercase tracking-wide">
+              Propuesta Realista · Presupuesto Acotado
+            </span>
+            <h3 class="text-2xl md:text-3xl font-extrabold text-white">
+              Workstation de IA por menos de USD 800
+            </h3>
+            <p class="text-slate-200 text-sm max-w-2xl mx-auto leading-relaxed">
+              Una computadora pensada para aprender, programar, probar modelos locales moderados y crear con IA generativa. Combina componentes nuevos y usados para exprimir cada dólar sin superar el presupuesto máximo.
+            </p>
+          </div>
+
+          <!-- INFOGRAFÍA DE CAPACIDADES (SVG) -->
+          <div class="space-y-2">
+            <div class="text-xs font-semibold text-slate-500 uppercase tracking-wider text-center">
+              Resumen visual de especificaciones clave
+            </div>
+            <div class="bg-slate-50 border border-slate-200 rounded-xl p-4">
+              <svg viewBox="0 0 920 190" class="w-full h-auto" xmlns="http://www.w3.org/2000/svg" font-family="system-ui, sans-serif">
+                <rect width="920" height="190" fill="#f8fafc" rx="10"/>
+                <text x="460" y="24" text-anchor="middle" fill="#1e293b" font-size="13" font-weight="700">Capacidades de la propuesta económica · estimaciones del 29–30/10/2026</text>
+                
+                <!-- Tarjeta 1: Presupuesto -->
+                <rect x="25" y="42" width="165" height="125" rx="8" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
+                <text x="107" y="95" text-anchor="middle" fill="#0369a1" font-size="22" font-weight="800">USD 797</text>
+                <text x="107" y="130" text-anchor="middle" fill="#334155" font-size="12">Costo estimado</text>
+
+                <!-- Tarjeta 2: VRAM -->
+                <rect x="202" y="42" width="165" height="125" rx="8" fill="#ffe4e6" stroke="#e11d48" stroke-width="2"/>
+                <text x="284" y="95" text-anchor="middle" fill="#be123c" font-size="22" font-weight="800">12 GB</text>
+                <text x="284" y="130" text-anchor="middle" fill="#334155" font-size="12">VRAM RTX 3060</text>
+
+                <!-- Tarjeta 3: CPU Núcleos -->
+                <rect x="379" y="42" width="165" height="125" rx="8" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+                <text x="461" y="95" text-anchor="middle" fill="#b45309" font-size="22" font-weight="800">6 / 12</text>
+                <text x="461" y="130" text-anchor="middle" fill="#334155" font-size="12">Núcleos / hilos CPU</text>
+
+                <!-- Tarjeta 4: RAM -->
+                <rect x="556" y="42" width="165" height="125" rx="8" fill="#ede9fe" stroke="#7c3aed" stroke-width="2"/>
+                <text x="638" y="95" text-anchor="middle" fill="#6d28d9" font-size="22" font-weight="800">32 GB</text>
+                <text x="638" y="130" text-anchor="middle" fill="#334155" font-size="12">RAM DDR4-3200</text>
+
+                <!-- Tarjeta 5: SSD -->
+                <rect x="733" y="42" width="165" height="125" rx="8" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+                <text x="815" y="95" text-anchor="middle" fill="#15803d" font-size="22" font-weight="800">1 TB</text>
+                <text x="815" y="130" text-anchor="middle" fill="#334155" font-size="12">SSD NVMe M.2</text>
+              </svg>
+            </div>
+          </div>
+
+          <!-- DIAGRAMA DE BLOQUES (SVG) -->
+          <div class="space-y-2">
+            <div class="text-xs font-semibold text-slate-500 uppercase tracking-wider text-center">
+              Diagrama de interconexión funcional
+            </div>
+            <div class="bg-white border border-slate-200 rounded-xl p-4">
+              <svg viewBox="0 0 920 340" class="w-full h-auto" xmlns="http://www.w3.org/2000/svg" font-family="system-ui, sans-serif">
+                <rect width="920" height="340" fill="#ffffff" rx="12"/>
+                <text x="460" y="30" text-anchor="middle" fill="#0f172a" font-size="16" font-weight="800">Esquema funcional de la workstation económica</text>
+                
+                <rect x="40" y="70" width="200" height="80" rx="8" fill="#dbeafe" stroke="#1e40af" stroke-width="2"/>
+                <text x="140" y="105" text-anchor="middle" fill="#1e3a8a" font-size="15" font-weight="700">SSD NVMe 1 TB</text>
+                <text x="140" y="130" text-anchor="middle" fill="#1e40af" font-size="12">Modelos y proyectos</text>
+
+                <line x1="240" y1="110" x2="280" y2="110" stroke="#334155" stroke-width="2"/>
+                <polygon points="240,110 248,105 248,115" fill="#334155"/>
+                <polygon points="280,110 272,105 272,115" fill="#334155"/>
+
+                <rect x="280" y="70" width="200" height="80" rx="8" fill="#ede9fe" stroke="#6d28d9" stroke-width="2"/>
+                <text x="380" y="105" text-anchor="middle" fill="#4c1d95" font-size="15" font-weight="700">RAM 32 GB</text>
+                <text x="380" y="130" text-anchor="middle" fill="#5b21b6" font-size="12">Datos activos</text>
+
+                <line x1="480" y1="110" x2="520" y2="110" stroke="#334155" stroke-width="2"/>
+                <polygon points="480,110 488,105 488,115" fill="#334155"/>
+                <polygon points="520,110 512,105 512,115" fill="#334155"/>
+
+                <rect x="520" y="70" width="200" height="80" rx="8" fill="#fef3c7" stroke="#b45309" stroke-width="2"/>
+                <text x="620" y="105" text-anchor="middle" fill="#78350f" font-size="15" font-weight="700">CPU</text>
+                <text x="620" y="130" text-anchor="middle" fill="#92400e" font-size="12">Ryzen 5 5600</text>
+
+                <rect x="180" y="210" width="240" height="80" rx="8" fill="#e2e8f0" stroke="#475569" stroke-width="2"/>
+                <text x="300" y="245" text-anchor="middle" fill="#0f172a" font-size="15" font-weight="700">Placa madre</text>
+                <text x="300" y="270" text-anchor="middle" fill="#334155" font-size="12">MSI B550M · conecta piezas</text>
+
+                <line x1="340" y1="150" x2="280" y2="210" stroke="#334155" stroke-width="2"/>
+                <polygon points="340,150 342,160 332,156" fill="#334155"/>
+                <polygon points="280,210 286,200 293,207" fill="#334155"/>
+
+                <line x1="420" y1="250" x2="520" y2="250" stroke="#334155" stroke-width="2"/>
+                <polygon points="420,250 428,245 428,255" fill="#334155"/>
+                <polygon points="520,250 512,245 512,255" fill="#334155"/>
+
+                <rect x="520" y="210" width="200" height="80" rx="8" fill="#ffe4e6" stroke="#be123c" stroke-width="2"/>
+                <text x="620" y="245" text-anchor="middle" fill="#9f1239" font-size="15" font-weight="700">GPU</text>
+                <text x="620" y="270" text-anchor="middle" fill="#881337" font-size="12">RTX 3060 12 GB</text>
+
+                <line x1="620" y1="150" x2="620" y2="210" stroke="#334155" stroke-width="2"/>
+                <polygon points="620,150 615,158 625,158" fill="#334155"/>
+                <polygon points="620,210 615,202 625,202" fill="#334155"/>
+
+                <rect x="750" y="140" width="140" height="85" rx="8" fill="#f1f5f9" stroke="#64748b" stroke-width="2"/>
+                <text x="820" y="175" text-anchor="middle" fill="#0f172a" font-size="15" font-weight="700">Fuente</text>
+                <text x="820" y="200" text-anchor="middle" fill="#334155" font-size="12">650 W Bronze</text>
+
+                <line x1="750" y1="190" x2="720" y2="225" stroke="#64748b" stroke-width="2"/>
+                <polygon points="720,225 725,215 732,221" fill="#64748b"/>
+              </svg>
+            </div>
+          </div>
+
+          <!-- TABLA DE COMPONENTES ACTUALIZADA (USD 797,40) -->
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <h4 class="font-bold text-slate-900 text-base">
+                Lista de Componentes, Estado y Precios
+              </h4>
+              <span class="text-xs text-slate-500">Cotizaciones actualizadas (29–30/10/2026)</span>
+            </div>
+
+            <div class="table-container border border-slate-200 rounded-xl shadow-sm">
+              <table class="w-full text-xs sm:text-sm text-left">
+                <thead class="bg-slate-100 text-slate-700 uppercase font-semibold text-xs border-b border-slate-200">
+                  <tr>
+                    <th class="p-3">Componente</th>
+                    <th class="p-3">Modelo Exacto Elegido</th>
+                    <th class="p-3 text-center">Estado</th>
+                    <th class="p-3">Función en lenguaje sencillo</th>
+                    <th class="p-3 text-right">Precio Estimado</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-200 text-slate-700">
+                  <tr class="hover:bg-slate-50">
+                    <td class="p-3 font-semibold text-slate-900">GPU</td>
+                    <td class="p-3 font-bold text-rose-900">NVIDIA GeForce RTX 3060 de 12 GB <span class="text-[10px] font-normal text-slate-500 block">(probar antes de comprar)</span></td>
+                    <td class="p-3 text-center"><span class="bg-amber-100 text-amber-800 text-[11px] font-semibold px-2 py-0.5 rounded">Usada</span></td>
+                    <td class="p-3 text-xs">Acelera los modelos de IA gracias a sus 12 GB de memoria de video indispensables.</td>
+                    <td class="p-3 text-right font-mono font-bold text-slate-900">USD 285 [22]</td>
+                  </tr>
+                  <tr class="hover:bg-slate-50">
+                    <td class="p-3 font-semibold text-slate-900">CPU</td>
+                    <td class="p-3 font-bold text-amber-900">AMD Ryzen 5 5600 <span class="text-[10px] font-normal text-slate-500 block">(con cooler Wraith Stealth incluido)</span></td>
+                    <td class="p-3 text-center"><span class="bg-emerald-100 text-emerald-800 text-[11px] font-semibold px-2 py-0.5 rounded">Nuevo</span></td>
+                    <td class="p-3 text-xs">Cerebro central: 6 núcleos y 12 hilos para procesar datos y coordinar el sistema.</td>
+                    <td class="p-3 text-right font-mono font-bold text-slate-900">USD 110,93 [23]</td>
+                  </tr>
+                  <tr class="hover:bg-slate-50">
+                    <td class="p-3 font-semibold text-slate-900">Placa madre</td>
+                    <td class="p-3 font-medium text-slate-900">MSI PRO B550M-P, socket AM4</td>
+                    <td class="p-3 text-center"><span class="bg-emerald-100 text-emerald-800 text-[11px] font-semibold px-2 py-0.5 rounded">Nueva</span></td>
+                    <td class="p-3 text-xs">Tablero de circuitos que conecta todos los componentes de forma confiable.</td>
+                    <td class="p-3 text-right font-mono font-bold text-slate-900">USD 69,99 [24]</td>
+                  </tr>
+                  <tr class="hover:bg-slate-50">
+                    <td class="p-3 font-semibold text-slate-900">RAM</td>
+                    <td class="p-3 font-medium text-purple-900">2 × SK hynix HMA82GU6DJR8N-XN · 16 GB c/u (32 GB DDR4-3200, 2Rx8 UDIMM)</td>
+                    <td class="p-3 text-center"><span class="bg-amber-100 text-amber-800 text-[11px] font-semibold px-2 py-0.5 rounded">Usada</span></td>
+                    <td class="p-3 text-xs">Memoria viva para manipular datasets y programas sin que se tilde la PC.</td>
+                    <td class="p-3 text-right font-mono font-bold text-slate-900">USD 90 [25]</td>
+                  </tr>
+                  <tr class="hover:bg-slate-50">
+                    <td class="p-3 font-semibold text-slate-900">Almacenamiento</td>
+                    <td class="p-3 font-medium text-blue-900">Timetec MS10 35TTFP6PCIE-1TB · NVMe M.2 2280 PCIe 3.0 x4 (1 TB)</td>
+                    <td class="p-3 text-center"><span class="bg-emerald-100 text-emerald-800 text-[11px] font-semibold px-2 py-0.5 rounded">Nuevo</span></td>
+                    <td class="p-3 text-xs">Espacio ultrarrápido donde se instala Windows, Python y los modelos de IA.</td>
+                    <td class="p-3 text-right font-mono font-bold text-slate-900">USD 139,99 [26]</td>
+                  </tr>
+                  <tr class="hover:bg-slate-50">
+                    <td class="p-3 font-semibold text-slate-900">Fuente</td>
+                    <td class="p-3 font-medium text-slate-900">Thermaltake Smart BM3, 650 W, 80 Plus Bronze</td>
+                    <td class="p-3 text-center"><span class="bg-emerald-100 text-emerald-800 text-[11px] font-semibold px-2 py-0.5 rounded">Nueva</span></td>
+                    <td class="p-3 text-xs">Suministra energía estable y limpia protegiendo la placa y la tarjeta de video.</td>
+                    <td class="p-3 text-right font-mono font-bold text-slate-900">USD 69,99 [27]</td>
+                  </tr>
+                  <tr class="hover:bg-slate-50">
+                    <td class="p-3 font-semibold text-slate-900">Gabinete</td>
+                    <td class="p-3 font-medium text-slate-900">Cooler Master MasterBox Q300L · MCB-Q300L-KANN-S00 (Micro-ATX)</td>
+                    <td class="p-3 text-center"><span class="bg-amber-100 text-amber-800 text-[11px] font-semibold px-2 py-0.5 rounded">Usado</span></td>
+                    <td class="p-3 text-xs">Carcasa con flujo de aire para mantener refrigerados los componentes.</td>
+                    <td class="p-3 text-right font-mono font-bold text-slate-900">USD 31,50 [28]</td>
+                  </tr>
+                </tbody>
+                <tfoot class="bg-blue-50 border-t-2 border-blue-600 font-bold text-slate-900">
+                  <tr>
+                    <td colspan="4" class="p-3 text-right text-sm">TOTAL DE COMPONENTES:</td>
+                    <td class="p-3 text-right font-mono text-base text-blue-700">USD 797,40</td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+            <p class="text-[11px] text-slate-500">
+              * Precios consultados en el mercado de Estados Unidos entre el 29 y el 30/10/2026 [22–28]. Se suman solo los componentes: no se agrega una reserva para envío. Total de la torre: <strong>USD 797,40</strong>; margen hasta USD 800: <strong>USD 2,60</strong>. No incluye monitor, periféricos ni licencia de software.
+            </p>
+          </div>
+
+          <!-- Justificación Técnica y Cuidados Antes de Comprar -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
+            <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 space-y-2">
+              <h5 class="font-bold text-slate-900 text-xs uppercase tracking-wider text-blue-600">
+                Estrategia de ahorro y justificación
+              </h5>
+              <ul class="text-xs text-slate-600 space-y-1.5 list-disc pl-4">
+                <li><strong>Prioridad en VRAM:</strong> Se prioriza la RTX 3060 de 12 GB porque la memoria de video determina el tamaño del modelo que cabe en la tarjeta. ¡Cuidado: existen versiones de 8 GB y 12 GB!</li>
+                <li><strong>Ahorro inteligente:</strong> Se compran usados la GPU, la RAM y el gabinete.</li>
+                <li><strong>Seguridad en lo crítico:</strong> La fuente de alimentación (650 W) y el SSD se compran nuevos. NVIDIA aconseja 550 W mínimos de referencia [16], brindando margen de seguridad.</li>
+              </ul>
+            </div>
+
+            <div class="bg-amber-50 border border-amber-200 rounded-xl p-4 space-y-2">
+              <h5 class="font-bold text-amber-900 text-xs uppercase tracking-wider">
+                Límites y precauciones antes de armar
+              </h5>
+              <ul class="text-xs text-slate-700 space-y-1.5 list-disc pl-4">
+                <li><strong>Alcance real:</strong> Ideal para aprender, programar y generar imágenes moderadas. <em>No está pensada para entrenar modelos grandes desde cero</em>.</li>
+                <li><strong>Revisión de GPU usada:</strong> Pedir prueba de funcionamiento previa, inspeccionar ventiladores y verificar política de devolución.</li>
+                <li><strong>Compatibilidad de BIOS:</strong> Confirmar que la placa madre B550 incluya versión de BIOS compatible con la serie Ryzen 5000.</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- GALERÍA DE COMPONENTES EXACTOS (FOTOGRAFÍAS INCORPORADAS) -->
+          <div class="space-y-4 pt-4 border-t border-slate-200">
+            <div class="flex items-center justify-between">
+              <h4 class="font-bold text-slate-900 text-base">
+                Galería de Fotografías de los Modelos Exactos
+              </h4>
+              <span class="text-xs font-semibold text-emerald-700 bg-emerald-100 px-2.5 py-0.5 rounded-full">
+                7 modelos exactos con fuente
+              </span>
+            </div>
+            <p class="text-xs text-slate-600">
+              Imágenes de los modelos exactos elegidos, basadas en las fuentes oficiales y fichas de producto catalogadas:
+            </p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              <!-- Foto 1: GPU -->
+              <div class="bg-slate-50 border border-slate-200 rounded-xl p-3 flex flex-col justify-between space-y-2 hover:border-blue-400 transition shadow-sm">
+                <div class="h-36 bg-white rounded-lg flex items-center justify-center p-2 border border-slate-200 overflow-hidden">
+                  <img src="https://assets.nvidia.partners/images/png/gv-n3060gaming%20oc-12gd.png" alt="NVIDIA GeForce RTX 3060 12 GB" class="product-img" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1587202372775-e229f172b9d7?auto=format&fit=crop&w=400&q=80';">
+                </div>
+                <div class="space-y-1 text-xs">
+                  <div class="font-bold text-slate-900 leading-tight">1. NVIDIA GeForce RTX 3060 12 GB</div>
+                  <div class="text-[11px] text-slate-500">Modelo con 12 GB GDDR6 y Tensor Cores</div>
+                  <div class="text-[10px] text-blue-600 pt-1 border-t border-slate-200">
+                    <a href="https://www.nvidia.com/en-us/geforce/graphics-cards/30-series/rtx-3060-3060ti/" target="_blank" rel="noopener noreferrer" class="underline">Ficha oficial NVIDIA [16]</a> · <a href="https://pcpartvalue.com/gpu/nvidia-geforce-rtx-3060-12-gb-ga106-12-gb-2021" target="_blank" rel="noopener noreferrer" class="underline">Mercado [22]</a>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Foto 2: CPU -->
+              <div class="bg-slate-50 border border-slate-200 rounded-xl p-3 flex flex-col justify-between space-y-2 hover:border-blue-400 transition shadow-sm">
+                <div class="h-36 bg-white rounded-lg flex items-center justify-center p-2 border border-slate-200 overflow-hidden">
+                  <img src="https://www.amd.com/content/dam/amd/en/images/products/processors/ryzen/2505503-ryzen-5-5600x.jpg" alt="AMD Ryzen 5 5600" class="product-img" onerror="this.onerror=null; this.src='https://www.amd.com/content/dam/amd/en/images/products/4767000-cooling-wraith-stealth.png';">
+                </div>
+                <div class="space-y-1 text-xs">
+                  <div class="font-bold text-slate-900 leading-tight">2. AMD Ryzen 5 5600</div>
+                  <div class="text-[11px] text-slate-500">Con disipador Wraith Stealth incluido</div>
+                  <div class="text-[10px] text-blue-600 pt-1 border-t border-slate-200">
+                    <a href="https://www.amd.com/en/support/downloads/drivers.html/processors/ryzen/ryzen-5000-series/amd-ryzen-5-5600.html" target="_blank" rel="noopener noreferrer" class="underline">Ficha oficial AMD [12]</a> · <a href="https://www.newegg.com/amd-ryzen-5-5000-series-ryzen-5-5600-vermeer-socket-am4-desktop-cpu-processor/p/N82E16819113736" target="_blank" rel="noopener noreferrer" class="underline">Newegg [23]</a>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Foto 3: Placa Madre -->
+              <div class="bg-slate-50 border border-slate-200 rounded-xl p-3 flex flex-col justify-between space-y-2 hover:border-blue-400 transition shadow-sm">
+                <div class="h-36 bg-white rounded-lg flex items-center justify-center p-2 border border-slate-200 overflow-hidden">
+                  <img src="https://storage-asset.msi.com/global/picture/image/feature/mb/B550/Pro/pro-b550m-p/kv/msi-pro-b550m-p-kv-mb.png" alt="MSI PRO B550M-P" class="product-img">
+                </div>
+                <div class="space-y-1 text-xs">
+                  <div class="font-bold text-slate-900 leading-tight">3. MSI PRO B550M-P</div>
+                  <div class="text-[11px] text-slate-500">Socket AM4, Micro-ATX, PCIe 4.0</div>
+                  <div class="text-[10px] text-blue-600 pt-1 border-t border-slate-200">
+                    <a href="https://www.msi.com/Motherboard/PRO-B550M-P" target="_blank" rel="noopener noreferrer" class="underline">Ficha oficial MSI [17]</a> · <a href="https://www.newegg.com/msi-pro-micro-atx-13-144-765-amd-b550-am4/p/N82E16813144765" target="_blank" rel="noopener noreferrer" class="underline">Newegg [24]</a>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Foto 4: RAM -->
+              <div class="bg-slate-50 border border-slate-200 rounded-xl p-3 flex flex-col justify-between space-y-2 hover:border-blue-400 transition shadow-sm">
+                <div class="h-36 bg-white rounded-lg flex items-center justify-center p-2 border border-slate-200 overflow-hidden">
+                  <img src="https://c1.neweggimages.com/productimage/nb640/AV80S210322CiVrm.jpg" alt="SK hynix HMA82GU6DJR8N-XN" class="product-img">
+                </div>
+                <div class="space-y-1 text-xs">
+                  <div class="font-bold text-slate-900 leading-tight">4. 2 × SK hynix HMA82GU6DJR8N-XN</div>
+                  <div class="text-[11px] text-slate-500">32 GB DDR4-3200 (2 × 16 GB), 2Rx8 UDIMM</div>
+                  <div class="text-[10px] text-blue-600 pt-1 border-t border-slate-200">
+                    <a href="https://www.newegg.com/sk-hynix-desktop-memory-16gb-ddr4-3200-cas-latency-cl22/p/0RN-00BX-000D3" target="_blank" rel="noopener noreferrer" class="underline">Ficha Newegg [33]</a> · <a href="https://offerup.com/item/detail/ce28c0c4-2c61-32ce-96bf-3c6f3f6c39eb" target="_blank" rel="noopener noreferrer" class="underline">OfferUp [25]</a>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Foto 5: SSD -->
+              <div class="bg-slate-50 border border-slate-200 rounded-xl p-3 flex flex-col justify-between space-y-2 hover:border-blue-400 transition shadow-sm">
+                <div class="h-36 bg-white rounded-lg flex items-center justify-center p-2 border border-slate-200 overflow-hidden">
+                  <img src="https://timetecinc.com/cdn/shop/files/products_M2_3ssd_new.jpg" alt="Timetec MS10 35TTFP6PCIE-1TB" class="product-img">
+                </div>
+                <div class="space-y-1 text-xs">
+                  <div class="font-bold text-slate-900 leading-tight">5. Timetec 35TTFP6PCIE-1TB</div>
+                  <div class="text-[11px] text-slate-500">SSD NVMe M.2 2280 PCIe 3.0 x4, 1 TB</div>
+                  <div class="text-[10px] text-blue-600 pt-1 border-t border-slate-200">
+                    <a href="https://timetecinc.com/products/timetec-premium-m-2-nvme-pcie-3-0-ssd" target="_blank" rel="noopener noreferrer" class="underline">Ficha oficial Timetec [32]</a> · <a href="https://www.newegg.com/timetec-1tb/p/0D9-00ES-00015?Item=9SIA56XBED8694" target="_blank" rel="noopener noreferrer" class="underline">Newegg [26]</a>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Foto 6: Fuente -->
+              <div class="bg-slate-50 border border-slate-200 rounded-xl p-3 flex flex-col justify-between space-y-2 hover:border-blue-400 transition shadow-sm">
+                <div class="h-36 bg-white rounded-lg flex items-center justify-center p-2 border border-slate-200 overflow-hidden">
+                  <img src="https://thermaltakeusa.com/cdn/shop/files/01_1.jpg?v=1691572534" alt="Thermaltake Smart BM3 650W" class="product-img">
+                </div>
+                <div class="space-y-1 text-xs">
+                  <div class="font-bold text-slate-900 leading-tight">6. Thermaltake Smart BM3 650W</div>
+                  <div class="text-[11px] text-slate-500">650 W, 80 Plus Bronze, semimodular</div>
+                  <div class="text-[10px] text-blue-600 pt-1 border-t border-slate-200">
+                    <a href="https://www.maxmybuild.com/power-supplies/thermaltake-smart-bm3-650w" target="_blank" rel="noopener noreferrer" class="underline">Referencia Thermaltake [27]</a>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Foto 7: Gabinete -->
+              <div class="bg-slate-50 border border-slate-200 rounded-xl p-3 flex flex-col justify-between space-y-2 hover:border-blue-400 transition shadow-sm col-span-1 sm:col-span-2 lg:col-span-2">
+                <div class="h-36 bg-white rounded-lg flex items-center justify-center p-2 border border-slate-200 overflow-hidden">
+                  <img src="https://a.storyblok.com/f/281110/8981b52446/gallery-1-min.png/m/960x0/smart" alt="Cooler Master MasterBox Q300L" class="product-img">
+                </div>
+                <div class="space-y-1 text-xs">
+                  <div class="font-bold text-slate-900 leading-tight">7. Cooler Master MasterBox Q300L (MCB-Q300L-KANN-S00)</div>
+                  <div class="text-[11px] text-slate-500">Chasis Micro-ATX con filtros magnéticos de patrón geométrico</div>
+                  <div class="text-[10px] text-blue-600 pt-1 border-t border-slate-200">
+                    <a href="https://www.coolermaster.com/es-global/products/masterbox-q300l.html" target="_blank" rel="noopener noreferrer" class="underline">Ficha oficial Cooler Master [34]</a> · <a href="https://www.ebay.com/p/17032785790" target="_blank" rel="noopener noreferrer" class="underline">eBay [28]</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- SECCIÓN: BIBLIOGRAFÍA Y RECURSOS -->
+      <!-- ========================================== -->
+      <section id="sec-bibliografia" class="section-content hidden p-6 md:p-10 space-y-8">
+        <!-- Encabezado de Sección -->
+        <div class="border-b border-slate-200 pb-4">
+          <div class="text-xs font-bold text-slate-500 uppercase tracking-wider">Fuentes de Consulta</div>
+          <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900">
+            Bibliografía y Recursos
+          </h2>
+          <p class="text-slate-600 text-sm mt-2">
+            Todas las fuentes consultadas se encuentran organizadas por eje temático, distinguiendo la naturaleza de cada fuente para garantizar la transparencia y el rigor académico del sitio.
+          </p>
+        </div>
+
+        <!-- Leyenda de tipos de fuentes -->
+        <div class="flex flex-wrap gap-2 text-xs">
+          <span class="bg-blue-100 text-blue-800 px-2.5 py-1 rounded-full font-medium">Oficial / Fabricante</span>
+          <span class="bg-emerald-100 text-emerald-800 px-2.5 py-1 rounded-full font-medium">Investigación Académica</span>
+          <span class="bg-amber-100 text-amber-800 px-2.5 py-1 rounded-full font-medium">Mercado / Cotizaciones</span>
+          <span class="bg-purple-100 text-purple-800 px-2.5 py-1 rounded-full font-medium">Benchmarks y Pruebas</span>
+        </div>
+
+        <!-- Grupo 1: Punto 1 -->
+        <div class="space-y-3">
+          <h3 class="text-base font-bold text-slate-900 flex items-center gap-2 border-l-4 border-blue-600 pl-2">
+            Punto 1 — CPU, GPU y NPU
+          </h3>
+          <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 divide-y divide-slate-200 text-xs text-slate-700 space-y-2">
+            <div class="pt-2 first:pt-0">
+              <span class="font-bold text-blue-700">[1]</span> <strong>Intel.</strong> <em>Core Ultra X9 388H, especificaciones oficiales.</em>
+              <a href="https://www.intel.com/content/www/us/en/products/sku/245526/intel-core-ultra-x9-processor-388h-18m-cache-up-to-5-10-ghz/specifications.html" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline block break-all mt-0.5">
+                https://www.intel.com/.../intel-core-ultra-x9-processor-388h/specifications.html
+              </a>
+            </div>
+            <div class="pt-2">
+              <span class="font-bold text-blue-700">[2]</span> <strong>AMD.</strong> <em>Ryzen AI 9 HX 470, especificaciones oficiales.</em>
+              <a href="https://www.amd.com/en/products/processors/laptop/ryzen/ai-400-series/amd-ryzen-ai-9-hx-470.html" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline block break-all mt-0.5">
+                https://www.amd.com/.../amd-ryzen-ai-9-hx-470.html
+              </a>
+            </div>
+            <div class="pt-2">
+              <span class="font-bold text-blue-700">[3]</span> <strong>AMD.</strong> <em>Ryzen AI 400 Series, presentación y datos del producto.</em>
+              <a href="https://www.amd.com/content/dam/amd/en/documents/partner-hub/ryzen/ryzen-ai-400-series-product-deck.pdf" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline block break-all mt-0.5">
+                https://www.amd.com/.../ryzen-ai-400-series-product-deck.pdf
+              </a>
+            </div>
+            <div class="pt-2">
+              <span class="font-bold text-blue-700">[4]</span> <strong>NVIDIA.</strong> <em>GeForce RTX 5090.</em>
+              <a href="https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5090/" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline block break-all mt-0.5">
+                https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5090/
+              </a>
+            </div>
+            <div class="pt-2">
+              <span class="font-bold text-blue-700">[5]</span> <strong>Intel.</strong> <em>Core Ultra X9 388H performance benchmarks.</em>
+              <a href="https://edc.intel.com/content/www/us/en/products/performance/benchmarks/mobile/" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline block break-all mt-0.5">
+                https://edc.intel.com/.../benchmarks/mobile/
+              </a>
+            </div>
+            <div class="pt-2">
+              <span class="font-bold text-blue-700">[6]</span> <strong>NVIDIA Developer Blog.</strong> <em>TensorRT Unlocks FP4 Image Generation for NVIDIA Blackwell GeForce RTX 50 Series GPUs.</em>
+              <a href="https://developer.nvidia.com/blog/nvidia-tensorrt-unlocks-fp4-image-generation-for-nvidia-blackwell-geforce-rtx-50-series-gpus/" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline block break-all mt-0.5">
+                https://developer.nvidia.com/blog/nvidia-tensorrt-unlocks-fp4-image-generation...
+              </a>
+            </div>
+            <div class="pt-2">
+              <span class="font-bold text-blue-700">[21]</span> <strong>Microsoft Support.</strong> <em>Windows Studio Effects.</em>
+              <a href="https://support.microsoft.com/en-us/windows/ai/ai-features/windows-studio-effects" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline block break-all mt-0.5">
+                https://support.microsoft.com/en-us/windows/ai/ai-features/windows-studio-effects
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Grupo 2: Punto 2 -->
+        <div class="space-y-3">
+          <h3 class="text-base font-bold text-slate-900 flex items-center gap-2 border-l-4 border-emerald-600 pl-2">
+            Punto 2 — Almacenamiento y Velocidades
+          </h3>
+          <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 divide-y divide-slate-200 text-xs text-slate-700 space-y-2">
+            <div class="pt-2 first:pt-0">
+              <span class="font-bold text-emerald-700">[7]</span> <strong>PCI-SIG.</strong> <em>PCIe 5.0 data rates.</em>
+              <a href="https://pcisig.com/what-bit-rates-does-pcie-50-specification-support-and-how-does-it-compare-prior-pcie-generations" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline block break-all mt-0.5">
+                https://pcisig.com/.../what-bit-rates-does-pcie-50-specification-support...
+              </a>
+            </div>
+            <div class="pt-2">
+              <span class="font-bold text-emerald-700">[8]</span> <strong>Microsoft.</strong> <em>DirectStorage API and developer resources.</em>
+              <a href="https://devblogs.microsoft.com/directx/directstorage-api-downloads/" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline block break-all mt-0.5">
+                https://devblogs.microsoft.com/directx/directstorage-api-downloads/
+              </a>
+            </div>
+            <div class="pt-2">
+              <span class="font-bold text-emerald-700">[9]</span> <strong>Seagate.</strong> <em>Barracuda Desktop 3TB, product specifications.</em>
+              <a href="https://www.seagate.com/ca/en/support/internal-hard-drives/desktop-hard-drives/desktop-hdd/" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline block break-all mt-0.5">
+                https://www.seagate.com/.../desktop-hard-drives/desktop-hdd/
+              </a>
+            </div>
+            <div class="pt-2">
+              <span class="font-bold text-emerald-700">[10]</span> <strong>Samsung.</strong> <em>870 EVO 1 TB, product specifications.</em>
+              <a href="https://www.samsung.com/us/memory-storage/sata-ssd/870-evo-sata-2-5-ssd-1tb-sku-mz-77e1t0b-am/" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline block break-all mt-0.5">
+                https://www.samsung.com/.../870-evo-sata-2-5-ssd-1tb...
+              </a>
+            </div>
+            <div class="pt-2">
+              <span class="font-bold text-emerald-700">[11]</span> <strong>Samsung.</strong> <em>9100 PRO 4 TB, product specifications.</em>
+              <a href="https://www.samsung.com/us/memory-storage/nvme-ssd/9100-pro-nvme-ssd-sku-mz-vap4t0b-am/" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline block break-all mt-0.5">
+                https://www.samsung.com/.../9100-pro-nvme-ssd...
+              </a>
+            </div>
+            <div class="pt-2">
+              <span class="font-bold text-emerald-700">[18]</span> <strong>Bandyopadhyay, S. et al. (2024).</strong> <em>Single-chip photonic deep neural network with forward-only training. Nature Photonics, 18, 1335–1343.</em>
+              <a href="https://www.nature.com/articles/s41566-024-01567-z" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline block break-all mt-0.5">
+                https://www.nature.com/articles/s41566-024-01567-z
+              </a>
+            </div>
+            <div class="pt-2">
+              <span class="font-bold text-emerald-700">[19]</span> <strong>Nature. (2024).</strong> <em>Fully forward mode training for optical neural networks. Nature, 632, 280–286.</em>
+              <a href="https://www.nature.com/articles/s41586-024-07687-4" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline block break-all mt-0.5">
+                https://www.nature.com/articles/s41586-024-07687-4
+              </a>
+            </div>
+            <div class="pt-2">
+              <span class="font-bold text-emerald-700">[20]</span> <strong>Yang, S. et al. (2024).</strong> <em>DNA as a universal chemical substrate for computing and data storage. Nature Reviews Chemistry, 8, 179–194.</em>
+              <a href="https://doi.org/10.1038/s41570-024-00576-4" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline block break-all mt-0.5">
+                https://doi.org/10.1038/s41570-024-00576-4
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Grupo 3: Punto 3 -->
+        <div class="space-y-3">
+          <h3 class="text-base font-bold text-slate-900 flex items-center gap-2 border-l-4 border-purple-600 pl-2">
+            Punto 3 — Workstations de Inteligencia Artificial
+          </h3>
+          <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 divide-y divide-slate-200 text-xs text-slate-700 space-y-2">
+            <div class="pt-2 first:pt-0">
+              <span class="font-bold text-purple-700">[12]</span> <strong>AMD.</strong> <em>Ryzen 5 5600.</em>
+              <a href="https://www.amd.com/en/support/downloads/drivers.html/processors/ryzen/ryzen-5000-series/amd-ryzen-5-5600.html" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline block break-all mt-0.5">
+                https://www.amd.com/.../ryzen-5-5600.html
+              </a>
+            </div>
+            <div class="pt-2">
+              <span class="font-bold text-purple-700">[13]</span> <strong>AMD.</strong> <em>Threadripper PRO 9995WX.</em>
+              <a href="https://www.amd.com/en/products/processors/workstations/ryzen-threadripper/9000-wx-series/amd-ryzen-threadripper-pro-9995wx.html" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline block break-all mt-0.5">
+                https://www.amd.com/.../amd-ryzen-threadripper-pro-9995wx.html
+              </a>
+            </div>
+            <div class="pt-2">
+              <span class="font-bold text-purple-700">[14]</span> <strong>ASUS.</strong> <em>Pro WS WRX90E-SAGE SE.</em>
+              <a href="https://www.asus.com/us/motherboards-components/motherboards/workstation/pro-ws-wrx90e-sage-se/techspec/" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline block break-all mt-0.5">
+                https://www.asus.com/.../pro-ws-wrx90e-sage-se/techspec/
+              </a>
+            </div>
+            <div class="pt-2">
+              <span class="font-bold text-purple-700">[15]</span> <strong>NVIDIA.</strong> <em>RTX PRO 6000 Blackwell Workstation Edition.</em>
+              <a href="https://www.nvidia.com/es-la/products/workstations/professional-desktop-gpus/rtx-pro-6000/" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline block break-all mt-0.5">
+                https://www.nvidia.com/.../rtx-pro-6000/
+              </a>
+            </div>
+            <div class="pt-2">
+              <span class="font-bold text-purple-700">[16]</span> <strong>NVIDIA.</strong> <em>GeForce RTX 3060 specifications.</em>
+              <a href="https://www.nvidia.com/en-us/geforce/graphics-cards/30-series/rtx-3060-3060ti/" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline block break-all mt-0.5">
+                https://www.nvidia.com/en-us/geforce/graphics-cards/30-series/rtx-3060-3060ti/
+              </a>
+            </div>
+            <div class="pt-2">
+              <span class="font-bold text-purple-700">[17]</span> <strong>MSI.</strong> <em>PRO B550M-P motherboard product page.</em>
+              <a href="https://www.msi.com/Motherboard/PRO-B550M-P" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline block break-all mt-0.5">
+                https://www.msi.com/Motherboard/PRO-B550M-P
+              </a>
+            </div>
+            <div class="pt-2">
+              <span class="font-bold text-purple-700">[22]</span> <strong>PC Part Value.</strong> <em>GeForce RTX 3060 12 GB usada, referencia de ventas recientes.</em>
+              <a href="https://pcpartvalue.com/gpu/nvidia-geforce-rtx-3060-12-gb-ga106-12-gb-2021" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline block break-all mt-0.5">
+                https://pcpartvalue.com/gpu/nvidia-geforce-rtx-3060-12-gb-ga106-12-gb-2021
+              </a>
+            </div>
+            <div class="pt-2">
+              <span class="font-bold text-purple-700">[23]</span> <strong>Newegg.</strong> <em>AMD Ryzen 5 5600, precio de oferta consultado.</em>
+              <a href="https://www.newegg.com/amd-ryzen-5-5000-series-ryzen-5-5600-vermeer-socket-am4-desktop-cpu-processor/p/N82E16819113736" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline block break-all mt-0.5">
+                https://www.newegg.com/.../p/N82E16819113736
+              </a>
+            </div>
+            <div class="pt-2">
+              <span class="font-bold text-purple-700">[24]</span> <strong>Newegg.</strong> <em>MSI PRO B550M-P, precio consultado.</em>
+              <a href="https://www.newegg.com/msi-pro-micro-atx-13-144-765-amd-b550-am4/p/N82E16813144765" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline block break-all mt-0.5">
+                https://www.newegg.com/.../p/N82E16813144765
+              </a>
+            </div>
+            <div class="pt-2">
+              <span class="font-bold text-purple-700">[25]</span> <strong>OfferUp.</strong> <em>Dos módulos usados SK hynix HMA82GU6DJR8N-XN, 16 GB cada uno, por USD 90.</em>
+              <a href="https://offerup.com/item/detail/ce28c0c4-2c61-32ce-96bf-3c6f3f6c39eb" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline block break-all mt-0.5">
+                https://offerup.com/item/detail/ce28c0c4...
+              </a>
+            </div>
+            <div class="pt-2">
+              <span class="font-bold text-purple-700">[26]</span> <strong>Newegg.</strong> <em>Timetec MS10 35TTFP6PCIE-1TB, SSD NVMe de 1 TB; precio consultado USD 139,99.</em>
+              <a href="https://www.newegg.com/timetec-1tb/p/0D9-00ES-00015?Item=9SIA56XBED8694" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline block break-all mt-0.5">
+                https://www.newegg.com/timetec-1tb/p/0D9-00ES-00015...
+              </a>
+            </div>
+            <div class="pt-2">
+              <span class="font-bold text-purple-700">[27]</span> <strong>MaxMyBuild.</strong> <em>Thermaltake Smart BM3 650 W, referencia de precio.</em>
+              <a href="https://www.maxmybuild.com/power-supplies/thermaltake-smart-bm3-650w" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline block break-all mt-0.5">
+                https://www.maxmybuild.com/.../thermaltake-smart-bm3-650w
+              </a>
+            </div>
+            <div class="pt-2">
+              <span class="font-bold text-purple-700">[28]</span> <strong>eBay.</strong> <em>Cooler Master MasterBox Q300L Micro-ATX usado; referencia USD 31,50.</em>
+              <a href="https://www.ebay.com/p/17032785790" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline block break-all mt-0.5">
+                https://www.ebay.com/p/17032785790
+              </a>
+            </div>
+            <div class="pt-2">
+              <span class="font-bold text-purple-700">[29]</span> <strong>be quiet!.</strong> <em>Dark Power Pro 13 1600 W, especificaciones.</em>
+              <a href="https://www.bequiet.com/es/powersupply/4412" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline block break-all mt-0.5">
+                https://www.bequiet.com/es/powersupply/4412
+              </a>
+            </div>
+            <div class="pt-2">
+              <span class="font-bold text-purple-700">[30]</span> <strong>Noctua.</strong> <em>NH-U14S TR5-SP6, compatibilidad con Threadripper PRO 9995WX.</em>
+              <a href="https://www.noctua.at/en/compatibility/by-components/cpus/amd-ryzen-threadripper-pro-9995wx" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline block break-all mt-0.5">
+                https://www.noctua.at/.../cpus/amd-ryzen-threadripper-pro-9995wx
+              </a>
+            </div>
+            <div class="pt-2">
+              <span class="font-bold text-purple-700">[31]</span> <strong>Fractal Design.</strong> <em>Define 7 XL, formatos de placa madre compatibles.</em>
+              <a href="https://www.fractal-design.com/products/cases/define/define-7-xl/" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline block break-all mt-0.5">
+                https://www.fractal-design.com/products/cases/define/define-7-xl/
+              </a>
+            </div>
+            <div class="pt-2">
+              <span class="font-bold text-purple-700">[32]</span> <strong>Timetec.</strong> <em>Ficha oficial e imágenes del SSD NVMe M.2 2280 PCIe 3.0 x4 (35TTFP6PCIE-1TB).</em>
+              <a href="https://timetecinc.com/products/timetec-premium-m-2-nvme-pcie-3-0-ssd" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline block break-all mt-0.5">
+                https://timetecinc.com/products/timetec-premium-m-2-nvme-pcie-3-0-ssd
+              </a>
+            </div>
+            <div class="pt-2">
+              <span class="font-bold text-purple-700">[33]</span> <strong>Newegg / SK hynix.</strong> <em>Especificaciones e imagen del módulo SK hynix HMA82GU6DJR8N-XN: 16 GB DDR4-3200 2Rx8 UDIMM.</em>
+              <a href="https://www.newegg.com/sk-hynix-desktop-memory-16gb-ddr4-3200-cas-latency-cl22/p/0RN-00BX-000D3" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline block break-all mt-0.5">
+                https://www.newegg.com/sk-hynix-desktop-memory-16gb-ddr4-3200...
+              </a>
+            </div>
+            <div class="pt-2">
+              <span class="font-bold text-purple-700">[34]</span> <strong>Cooler Master.</strong> <em>Ficha oficial e imágenes del MasterBox Q300L (MCB-Q300L-KANN-S00): Micro-ATX y refrigeración.</em>
+              <a href="https://www.coolermaster.com/es-global/products/masterbox-q300l.html" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline block break-all mt-0.5">
+                https://www.coolermaster.com/es-global/products/masterbox-q300l.html
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FOOTER DEL SITIO -->
+      <footer class="bg-slate-100 border-t border-slate-200 px-6 py-4 text-center text-xs text-slate-500">
+        <div>Proyecto Educativo: <strong>Arquitectura de Computadoras</strong> · Materia: <strong>IACO 2026</strong></div>
+        <div class="text-[11px] text-slate-400 mt-1">Profesor: Emmanuel Galiotti · Prototipo para Google Sites</div>
+      </footer>
+
+    </div>
+  </div>
+
+  <script>
+    function navigateTo(sectionId) {
+      document.querySelectorAll('.section-content').forEach(el => el.classList.add('hidden'));
+      const activeSec = document.getElementById('sec-' + sectionId);
+      if (activeSec) {
+        activeSec.classList.remove('hidden');
+      }
+
+      document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+      const activeBtn = document.getElementById('nav-' + sectionId);
+      if (activeBtn) {
+        activeBtn.classList.add('active');
+      }
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function setDeviceView(mode) {
+      const container = document.getElementById('previewContainer');
+      const btnDesktop = document.getElementById('btnDesktop');
+      const btnMobile = document.getElementById('btnMobile');
+
+      if (mode === 'mobile') {
+        container.classList.add('mobile-frame');
+        btnMobile.classList.add('device-active');
+        btnMobile.classList.remove('text-slate-300');
+        btnDesktop.classList.remove('device-active');
+        btnDesktop.classList.add('text-slate-300');
+      } else {
+        container.classList.remove('mobile-frame');
+        btnDesktop.classList.add('device-active');
+        btnDesktop.classList.remove('text-slate-300');
+        btnMobile.classList.remove('device-active');
+        btnMobile.classList.add('text-slate-300');
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+========================================================================
+PROYECTO EDUCATIVO: ARQUITECTURA DE COMPUTADORAS (IACO 2026)
+Guía y Archivos para Montaje en Google Sites
+Profesor: Emmanuel Galiotti
+========================================================================
+
+Archivos incluidos en este paquete:
+
+1. Sitio_Web_Educativo.html
+   - Prototipo visual interactivo y responsivo del sitio web.
+   - Podes abrirlo haciendo doble clic con cualquier navegador (Chrome, Edge, Firefox).
+   - Incluye botón superior para simular vista de Computadora o vista de Celular.
+   - Contiene la navegación entre las 5 secciones, tablas completas, esquemas SVG de microarquitectura, diagrama de bloques funcional, infografía de capacidades, gráfico de almacenamiento en escala logarítmica y recuadros de pendientes.
+
+2. Guia_Montaje_Google_Sites.md
+   - Documento estructurado bloque por bloque con todos los encabezados, textos listos para copiar, tablas y citas.
+   - Incluye la lista de materiales pendientes que debe completar el grupo y el checklist previo a la publicación.
+
+3. Proyecto_IACO_2026_GoogleSites.zip
+   - Archivo comprimido con todos estos recursos para transportar o compartir fácilmente.
+
+========================================================================
+Ubicación en el sistema:
+C:\Users\ADMIN\.gemini\antigravity\scratch\proyecto_iaco_2026\
+========================================================================
