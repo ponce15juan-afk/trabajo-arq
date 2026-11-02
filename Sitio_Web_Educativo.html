@@ -153,7 +153,7 @@
                 </div>
                 <h3 class="font-bold text-slate-900 text-base">Punto 2: Almacenamiento</h3>
                 <p class="text-slate-600 text-xs leading-relaxed">
-                  SATA vs NVMe, analogía de la carretera, gráfico comparativo de velocidades en escala logarítmica, PCIe 5.0, DirectStorage, fotónica y ADN.
+                  SATA vs NVMe, analogía de la carretera, gráfico comparativo de velocidades en escala logarítmica, AHCI vs colas NVMe, tiempos de ingesta de 100 GB, PCIe 5.0, DirectStorage, Project Silica (cuarzo), ADN y tabla de uso recomendado.
                 </p>
               </div>
               <button onclick="navigateTo('punto2')" class="mt-4 w-full bg-white group-hover:bg-emerald-600 group-hover:text-white text-emerald-600 font-semibold border border-emerald-200 group-hover:border-emerald-600 text-xs py-2 rounded-lg transition text-center">
@@ -591,34 +591,41 @@
             La superautopista de los datos: Almacenamiento y velocidades
           </h2>
           <p class="text-slate-600 text-sm mt-2">
-            El almacenamiento conserva el sistema operativo, los programas, los modelos y los conjuntos de datos. Un acceso rápido reduce el tiempo de carga, aunque el SSD no reemplaza la RAM ni la VRAM.
+            El almacenamiento conserva el sistema operativo, los programas, los modelos y los conjuntos de datos. Un acceso rápido reduce el tiempo de carga y transferencia. Sin embargo, el SSD no reemplaza la RAM ni la memoria de video: una vez que un modelo se usa, sus partes necesarias deben pasar a la memoria del sistema o de la GPU.
           </p>
         </div>
 
         <!-- La batalla de los SSD: SATA vs NVMe -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div class="bg-slate-50 border border-slate-200 rounded-xl p-5 space-y-3">
-            <h3 class="font-bold text-slate-900 text-sm flex items-center gap-2">
-              <span class="text-blue-600">🔌</span> SATA vs. NVMe: Protocolo e Interfaz
-            </h3>
-            <p class="text-xs text-slate-600 leading-relaxed">
-              <strong>SATA</strong> es una interfaz tradicional de conexión nacida para discos mecánicos. <strong>NVMe</strong> es un protocolo optimizado para memoria de estado sólido conectado directamente mediante <strong>PCI Express (PCIe)</strong>.
-            </p>
-            <p class="text-xs text-slate-600 leading-relaxed">
-              SATA III ofrece hasta 6 Gb/s (~600 MB/s teóricos brutos), limitando los discos en torno a los 550 MB/s. NVMe supera con creces estas cotas al aprovechar múltiples líneas de bus de alta velocidad.
-            </p>
+        <div class="space-y-3">
+          <h3 class="text-base md:text-lg font-bold text-slate-900">La batalla de los SSD: SATA y NVMe</h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="bg-slate-50 border border-slate-200 rounded-xl p-5 space-y-3">
+              <h4 class="font-bold text-slate-900 text-sm flex items-center gap-2">
+                <span>🛤️</span> SSD SATA III <span class="text-xs font-medium text-slate-500">(carretera rural de dos carriles)</span>
+              </h4>
+              <p class="text-xs text-slate-600 leading-relaxed">
+                La interfaz <strong>SATA</strong> fue diseñada originalmente en la era de los discos rígidos mecánicos (HDD). Emplea el protocolo <strong>AHCI</strong> (<em>Advanced Host Controller Interface</em>) a través de un único canal de comunicación físico, limitado a <strong>una sola cola de hasta 32 comandos</strong>.
+              </p>
+              <p class="text-xs text-slate-600 leading-relaxed">
+                Su velocidad teórica máxima está confinada por el bus SATA a 6 Gb/s (~600 MB/s), alcanzando en la práctica unos <strong>530–560 MB/s</strong>.
+              </p>
+            </div>
+
+            <div class="bg-emerald-50/60 border border-emerald-200 rounded-xl p-5 space-y-3">
+              <h4 class="font-bold text-emerald-950 text-sm flex items-center gap-2">
+                <span>🛣️</span> SSD NVMe sobre PCIe <span class="text-xs font-medium text-emerald-800">(autopista de múltiples carriles de alta velocidad)</span>
+              </h4>
+              <p class="text-xs text-slate-700 leading-relaxed">
+                <strong>NVMe</strong> (<em>Non-Volatile Memory Express</em>) se construyó exclusivamente para memorias de estado sólido basadas en silicio. No utiliza cables ni controladores intermedios SATA: se conecta de forma directa a las pistas <strong>PCI Express (PCIe)</strong> del procesador.
+              </p>
+              <p class="text-xs text-slate-700 leading-relaxed">
+                Gracias a este enlace, NVMe admite hasta <strong>64.000 colas de comandos paralelas con 64.000 comandos por cola</strong>, alcanzando tasas que van desde los <strong>3.500 MB/s en PCIe 3.0</strong> hasta más de <strong>14.000 MB/s en PCIe 5.0</strong>.
+              </p>
+            </div>
           </div>
 
-          <div class="bg-amber-50/70 border border-amber-200 rounded-xl p-5 space-y-3">
-            <h3 class="font-bold text-amber-950 text-sm flex items-center gap-2">
-              <span>🛣️</span> La Analogía de la Carretera
-            </h3>
-            <p class="text-xs text-slate-700 leading-relaxed">
-              Se suele comparar a <em>SATA como una carretera de 2 carriles</em> y a <em>NVMe como una autopista de 8 carriles</em>.
-            </p>
-            <div class="bg-white/80 border border-amber-300 rounded p-2 text-[11px] text-amber-900">
-              <strong>Aclaración conceptual:</strong> Es una comparación visual pedagógica para ilustrar el ancho de banda, no una descripción física literal. En la práctica, las unidades SSD M.2 NVMe de consumo suelen utilizar <strong>hasta 4 carriles PCIe (x4)</strong>.
-            </div>
+          <div class="bg-amber-50/70 border border-amber-200 rounded-lg p-3 text-[11px] text-amber-900">
+            <strong>Aclaración conceptual:</strong> la analogía de la carretera es una comparación pedagógica para ilustrar el ancho de banda y la cantidad de comandos en paralelo, no una descripción física literal. En la práctica, las unidades M.2 NVMe de consumo suelen utilizar <strong>hasta 4 carriles PCIe (x4)</strong>.
           </div>
         </div>
 
@@ -634,6 +641,7 @@
                   <th class="p-3">Unidad comparada</th>
                   <th class="p-3 text-blue-900">Lectura secuencial</th>
                   <th class="p-3 text-amber-900">Escritura secuencial</th>
+                  <th class="p-3 text-emerald-900">Tiempo estimado (100 GB)</th>
                   <th class="p-3">Naturaleza de la cifra</th>
                 </tr>
               </thead>
@@ -642,18 +650,21 @@
                   <td class="p-3 font-semibold text-slate-900">HDD Seagate BarraCuda 3 TB</td>
                   <td class="p-3 font-mono">156 MB/s</td>
                   <td class="p-3 font-mono">156 MB/s</td>
+                  <td class="p-3 font-mono font-semibold">10 min 41 s</td>
                   <td class="p-3 text-slate-500">Promedio informado en la ficha consultada [9]</td>
                 </tr>
                 <tr class="hover:bg-slate-50">
                   <td class="p-3 font-semibold text-slate-900">SSD SATA Samsung 870 EVO 1 TB</td>
                   <td class="p-3 font-mono text-blue-700">Hasta 560 MB/s</td>
                   <td class="p-3 font-mono text-amber-700">Hasta 530 MB/s</td>
+                  <td class="p-3 font-mono font-semibold">2 min 59 s</td>
                   <td class="p-3 text-slate-500">Máximos secuenciales del fabricante [10]</td>
                 </tr>
                 <tr class="hover:bg-slate-50">
                   <td class="p-3 font-semibold text-slate-900">SSD NVMe Samsung 9100 PRO PCIe 5.0 4 TB</td>
                   <td class="p-3 font-mono font-bold text-blue-800">Hasta 14.800 MB/s</td>
                   <td class="p-3 font-mono font-bold text-amber-800">Hasta 13.400 MB/s</td>
+                  <td class="p-3 font-mono font-bold text-emerald-800">~7 segundos</td>
                   <td class="p-3 text-slate-500">Máximos secuenciales del fabricante [11]</td>
                 </tr>
               </tbody>
@@ -663,14 +674,14 @@
 
         <!-- Ejemplo de Carga de Dataset de 100 GB -->
         <div class="bg-gradient-to-r from-blue-900 to-slate-900 text-white rounded-xl p-5 space-y-3 shadow-sm">
-          <div class="flex items-center justify-between">
+          <div class="flex items-center justify-between gap-2">
             <h4 class="font-bold text-white text-sm md:text-base flex items-center gap-2">
-              <span>⏱️</span> Ejemplo práctico: Cargar un conjunto de datos de 100 GB (100.000 MB)
+              <span>⏱️</span> Ejemplo práctico: tiempo de ingesta de un dataset de 100 GB
             </h4>
-            <span class="text-xs bg-blue-500/30 px-2 py-0.5 rounded text-blue-200">Cálculo teórico secuencial</span>
+            <span class="text-xs bg-blue-500/30 px-2 py-0.5 rounded text-blue-200 whitespace-nowrap">Cálculo teórico</span>
           </div>
           <p class="text-xs text-slate-300 leading-relaxed">
-            Se calcula dividiendo el tamaño del archivo por la tasa de lectura secuencial informada:
+            Para evidenciar el impacto en un escenario de trabajo real, se calcula el tiempo teórico requerido para transferir un conjunto de datos sin procesar de 100 GB (100.000 MB) directamente a la memoria principal de trabajo, dividiendo el tamaño por la tasa de lectura secuencial:
           </p>
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-1">
             <div class="bg-white/10 rounded-lg p-3 text-center border border-white/10">
@@ -685,26 +696,29 @@
             </div>
             <div class="bg-white/10 rounded-lg p-3 text-center border border-white/10">
               <div class="text-slate-400 text-xs">NVMe PCIe 5.0 (14.800 MB/s)</div>
-              <div class="text-lg md:text-xl font-mono font-bold text-emerald-300 mt-1">7 segundos</div>
+              <div class="text-lg md:text-xl font-mono font-bold text-emerald-300 mt-1">~7 segundos</div>
               <div class="text-[10px] text-slate-400 mt-0.5">(100.000 / 14.800 ≈ 6,76 s)</div>
             </div>
           </div>
           <p class="text-[11px] text-slate-400 italic">
-            * Nota: Estimación puramente teórica secuencial. En situaciones reales el tiempo depende de la fragmentación, cantidad de archivos pequeños, sistema operativo, temperatura y procesador.
+            * Nota: estimación puramente teórica secuencial. En situaciones reales el tiempo depende de la fragmentación, la cantidad de archivos pequeños, el sistema operativo, la temperatura y el procesador.
           </p>
         </div>
 
-        <!-- GRÁFICO DE LECTURA Y ESCRITURA EN ESCALA LOGARÍTMICA (SVG NÍTIDO Y LEGIBLE) -->
+        <!-- GRÁFICO DE LECTURA Y ESCRITURA EN ESCALA LOGARÍTMICA -->
         <div class="space-y-3">
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
             <h3 class="text-base md:text-lg font-bold text-slate-900">
-              Gráfico Comparativo de Velocidades (Escala Logarítmica)
+              Comparativa de Velocidad (Escala Logarítmica)
             </h3>
             <div class="flex items-center gap-4 text-xs font-semibold">
               <span class="flex items-center gap-1.5"><span class="w-3.5 h-3.5 bg-[#2b6cb0] rounded-sm"></span> Lectura (MB/s)</span>
               <span class="flex items-center gap-1.5"><span class="w-3.5 h-3.5 bg-[#dd6b20] rounded-sm"></span> Escritura (MB/s)</span>
             </div>
           </div>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            El siguiente gráfico ilustra las velocidades secuenciales máximas de lectura y escritura informadas en las especificaciones oficiales de cada unidad, evidenciando la magnitud del salto generacional.
+          </p>
 
           <div class="bg-white border border-slate-200 rounded-xl p-4 shadow-sm">
             <svg viewBox="0 0 920 440" class="w-full h-auto" xmlns="http://www.w3.org/2000/svg" font-family="system-ui, sans-serif">
@@ -748,70 +762,132 @@
             </svg>
           </div>
           <p class="text-xs text-slate-500 leading-relaxed">
-            <strong>Figura:</strong> Velocidades secuenciales de fichas de producto; HDD 156 MB/s según el valor promedio indicado en la ficha [9], Samsung 870 EVO y 9100 PRO según máximos secuenciales del fabricante [10, 11]. La escala vertical es logarítmica para permitir la visualización proporcional de magnitudes dispares (desde 156 hasta 14.800 MB/s).
+            <strong>Figura:</strong> velocidades secuenciales de fichas de producto; HDD 156 MB/s según el valor promedio indicado en la ficha [9], Samsung 870 EVO y 9100 PRO según máximos secuenciales del fabricante [10, 11]. La escala vertical es logarítmica para permitir la visualización proporcional de magnitudes dispares (desde 156 hasta 14.800 MB/s).
           </p>
         </div>
 
-        <!-- Tecnologías de Frontera y Futuro -->
-        <div class="space-y-4">
-          <h3 class="text-base md:text-lg font-bold text-slate-900">
-            Mirando al horizonte: Tecnologías Emergentes
+        <!-- Mirando al Horizonte -->
+        <div class="space-y-5">
+          <h3 class="text-base md:text-lg font-bold text-slate-900 border-l-4 border-emerald-600 pl-3">
+            Mirando al horizonte: tecnologías que transforman el silicio
           </h3>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 space-y-2">
-              <h4 class="font-bold text-slate-900 text-sm">⚡ PCIe 5.0</h4>
-              <p class="text-xs text-slate-600 leading-relaxed">
-                Duplica la tasa de transferencia por carril frente a PCIe 4.0 (32 GT/s frente a 16 GT/s). En un SSD compatible eleva las tasas secuenciales por encima de los 14.000 MB/s, aunque su rendimiento efectivo depende de la temperatura y la carga [7, 11].
-              </p>
+
+          <!-- A. PCIe 5.0 -->
+          <div class="bg-slate-50 border border-slate-200 rounded-xl p-5 space-y-3">
+            <h4 class="font-bold text-slate-900 text-sm">⚡ A. SSDs PCIe 5.0 y su impacto en entornos profesionales</h4>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              La especificación PCIe 5.0 duplica la tasa de transferencia por carril físico frente a PCIe 4.0, pasando de <strong>16 GT/s a 32 GT/s</strong> [7]. En una ranura M.2 de cuatro carriles (x4), esto se traduce en anchos de banda teóricos de hasta unos <strong>16 GB/s por sentido</strong>.
+            </p>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              Para la Inteligencia Artificial, esto significa que modelos fundacionales con pesos de 30B o 70B parámetros pueden cargarse en la memoria de trabajo en cuestión de <strong>2 a 4 segundos</strong> en el mejor caso teórico (según el tamaño en disco del modelo y su cuantización, y siempre que haya memoria suficiente), reduciendo las pausas de carga [11].
+            </p>
+            <div class="bg-red-50 border border-red-200 rounded-lg p-3 text-[11px] text-red-900">
+              <strong>🌡️ Advertencia térmica:</strong> los SSDs PCIe 5.0 exigen soluciones térmicas dedicadas. Las controladoras de alta velocidad operan a temperaturas elevadas que requieren disipadores pasivos robustos de aluminio o refrigeración activa para evitar el estrangulamiento térmico (<em>thermal throttling</em>).
+            </div>
+          </div>
+
+          <!-- B. DirectStorage -->
+          <div class="bg-slate-50 border border-slate-200 rounded-xl p-5 space-y-4">
+            <h4 class="font-bold text-slate-900 text-sm">🎮 B. Microsoft DirectStorage: descompresión en GPU y reducción de latencia</h4>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              El flujo tradicional de entrada/salida de datos en los sistemas operativos modernos representa un circuito ineficiente: los datos comprimidos se leen desde el SSD, viajan a la memoria RAM, son descomprimidos por la CPU mediante múltiples ciclos de reloj y finalmente se copian a la VRAM de la placa de video.
+            </p>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              La tecnología <strong>DirectStorage</strong> de Microsoft rediseña esta tubería: permite que los bloques comprimidos se envíen directamente desde el almacenamiento NVMe hacia la GPU a través del bus PCIe. La propia tarjeta de video se encarga de descomprimir los datos en tiempo real mediante sus núcleos paralelos (o aceleradores de descompresión por hardware) [8].
+            </p>
+
+            <!-- Rutas comparadas -->
+            <div class="space-y-3">
+              <div class="bg-white border border-slate-200 rounded-lg p-3">
+                <div class="text-[11px] font-bold text-slate-500 uppercase tracking-wide mb-2">Ruta tradicional de almacenamiento</div>
+                <div class="flex flex-wrap items-center gap-1.5 text-[11px] font-semibold">
+                  <span class="bg-slate-100 text-slate-800 px-2 py-1 rounded">SSD</span><span class="text-slate-400">→</span>
+                  <span class="bg-slate-100 text-slate-800 px-2 py-1 rounded">Bus PCIe</span><span class="text-slate-400">→</span>
+                  <span class="bg-slate-100 text-slate-800 px-2 py-1 rounded">Memoria RAM</span><span class="text-slate-400">→</span>
+                  <span class="bg-amber-100 text-amber-900 px-2 py-1 rounded">CPU (descompresión por software)</span><span class="text-slate-400">→</span>
+                  <span class="bg-slate-100 text-slate-800 px-2 py-1 rounded">Memoria VRAM</span>
+                </div>
+              </div>
+              <div class="bg-white border border-emerald-300 rounded-lg p-3">
+                <div class="text-[11px] font-bold text-emerald-700 uppercase tracking-wide mb-2">Ruta optimizada con DirectStorage</div>
+                <div class="flex flex-wrap items-center gap-1.5 text-[11px] font-semibold">
+                  <span class="bg-emerald-100 text-emerald-900 px-2 py-1 rounded">SSD NVMe</span><span class="text-slate-400">→</span>
+                  <span class="bg-emerald-100 text-emerald-900 px-2 py-1 rounded">Bus PCIe directo</span><span class="text-slate-400">→</span>
+                  <span class="bg-emerald-100 text-emerald-900 px-2 py-1 rounded">Memoria VRAM de la GPU (descompresión paralela masiva)</span>
+                </div>
+              </div>
             </div>
 
-            <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 space-y-2">
-              <h4 class="font-bold text-slate-900 text-sm">🎮 Microsoft DirectStorage</h4>
-              <p class="text-xs text-slate-600 leading-relaxed">
-                API diseñada para transferir datos directamente desde el almacenamiento a la VRAM sin pasar por descompresión de CPU. En IA puede facilitar la carga veloz de pesos de modelos si el framework la integra, pero hoy no acelera automáticamente cualquier programa de IA [8].
-              </p>
-            </div>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              En el contexto de la IA, DirectStorage sienta las bases para transmitir texturas neuronales y matrices sin saturar los recursos de cálculo de la CPU. Aun así, hoy no acelera automáticamente cualquier programa de IA: requiere que el framework lo integre [8].
+            </p>
+          </div>
 
-            <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 space-y-2">
-              <h4 class="font-bold text-slate-900 text-sm">💡 Fotónica Integrada</h4>
-              <p class="text-xs text-slate-600 leading-relaxed">
-                Circuitos ópticos que usan fotones en vez de electrones para operaciones matriciales con latencia ultra-baja y altísima velocidad. Cuenta con prototipos experimentales (Nature), pero enfrenta retos de escalabilidad y fabricación masiva [18, 19].
-              </p>
-            </div>
-
-            <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 space-y-2">
-              <h4 class="font-bold text-slate-900 text-sm">🧬 Cómputo y Almacenamiento con ADN</h4>
-              <p class="text-xs text-slate-600 leading-relaxed">
-                Uso de secuencias químicas de nucleótidos para archivo de densidades masivas por milímetro cúbico. Es un campo emergente de largo plazo; los tiempos de síntesis y secuenciación impiden que sea un reemplazo doméstico hoy [20].
-              </p>
+          <!-- C. Tecnologías experimentales -->
+          <div class="space-y-3">
+            <h4 class="font-bold text-slate-900 text-sm">🔬 C. Tecnologías experimentales: más allá del silicio tradicional</h4>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              A medida que la litografía del silicio alcanza límites físicos moleculares, la investigación científica explora paradigmas alternativos para almacenar los volúmenes colosales de datos que demanda la IA.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 space-y-2">
+                <h5 class="font-bold text-slate-900 text-sm">💎 Almacenamiento óptico en cristal de cuarzo (Project Silica)</h5>
+                <p class="text-xs text-slate-600 leading-relaxed">
+                  Desarrollado por laboratorios de investigación avanzados, utiliza pulsos de láser de femtosegundo para codificar vóxeles tridimensionales dentro de placas de vidrio de cuarzo de alta pureza. Esta tecnología permite almacenar petabytes de datos inmunes a interferencias electromagnéticas, humedad y temperaturas extremas, con una vida útil estimada de miles de años sin degradación (ideal para <em>checkpoints</em> históricos de IA) [35].
+                </p>
+              </div>
+              <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 space-y-2">
+                <h5 class="font-bold text-slate-900 text-sm">🧬 Almacenamiento y cómputo molecular en ADN sintético</h5>
+                <p class="text-xs text-slate-600 leading-relaxed">
+                  Aprovecha las bases nitrogenadas (A, C, G, T) como código cuaternario biológico para representar cadenas binarias de datos. La densidad teórica del ADN permite albergar centros de datos completos en unos pocos gramos de material orgánico. Investigaciones recientes combinan este soporte con operaciones de filtrado químico y reconocimiento de patrones moleculares, sentando precedentes de computación biológica directa [20].
+                </p>
+              </div>
             </div>
           </div>
         </div>
 
-        <!-- Recomendación Simple -->
-        <div class="table-container border border-slate-200 rounded-xl shadow-sm">
-          <table class="w-full text-xs sm:text-sm text-left">
-            <thead class="bg-emerald-800 text-white uppercase font-semibold text-xs">
-              <tr>
-                <th class="p-3">Uso previsto</th>
-                <th class="p-3">Recomendación técnica simple</th>
-              </tr>
-            </thead>
-            <tbody class="divide-y divide-slate-200 text-slate-700">
-              <tr class="hover:bg-slate-50">
-                <td class="p-3 font-semibold text-slate-900">Guardar archivos grandes o copias de seguridad con bajo costo</td>
-                <td class="p-3">HDD tradicional.</td>
-              </tr>
-              <tr class="hover:bg-slate-50">
-                <td class="p-3 font-semibold text-slate-900">Mejorar una PC básica sin gastar tanto presupuesto</td>
-                <td class="p-3">SSD SATA.</td>
-              </tr>
-              <tr class="hover:bg-slate-50">
-                <td class="p-3 font-semibold text-slate-900">Cargar modelos y grandes conjuntos de datos con la máxima rapidez</td>
-                <td class="p-3 font-medium text-emerald-800">SSD NVMe, si la placa madre y la plataforma son compatibles.</td>
-              </tr>
-            </tbody>
-          </table>
+        <!-- Tabla resumen por tipo de unidad -->
+        <div class="space-y-3">
+          <h3 class="text-base md:text-lg font-bold text-slate-900">Resumen: qué unidad elegir según el uso</h3>
+          <div class="table-container border border-slate-200 rounded-xl shadow-sm">
+            <table class="w-full text-xs sm:text-sm text-left">
+              <thead class="bg-emerald-800 text-white uppercase font-semibold text-xs">
+                <tr>
+                  <th class="p-3">Tipo de unidad</th>
+                  <th class="p-3">Rango de velocidad</th>
+                  <th class="p-3">Costo relativo</th>
+                  <th class="p-3">Aplicación recomendada en IA</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-200 text-slate-700">
+                <tr class="hover:bg-slate-50">
+                  <td class="p-3 font-semibold text-slate-900">HDD mecánico</td>
+                  <td class="p-3 font-mono">120–180 MB/s</td>
+                  <td class="p-3">Muy bajo (económico)</td>
+                  <td class="p-3">Copias de seguridad en frío, almacenamiento de datasets sin procesar y archivos masivos.</td>
+                </tr>
+                <tr class="hover:bg-slate-50">
+                  <td class="p-3 font-semibold text-slate-900">SSD SATA III</td>
+                  <td class="p-3 font-mono">500–560 MB/s</td>
+                  <td class="p-3">Bajo / moderado</td>
+                  <td class="p-3">Disco secundario para proyectos archivados o actualización de equipos antiguos.</td>
+                </tr>
+                <tr class="hover:bg-emerald-50/60 bg-emerald-50/30">
+                  <td class="p-3 font-semibold text-slate-900">SSD NVMe PCIe 4.0</td>
+                  <td class="p-3 font-mono">5.000–7.400 MB/s</td>
+                  <td class="p-3 font-medium text-emerald-800">Equilibrado (óptimo)</td>
+                  <td class="p-3">Estándar ideal para el sistema operativo, scripts de Python, librerías y modelos activos.</td>
+                </tr>
+                <tr class="hover:bg-slate-50">
+                  <td class="p-3 font-semibold text-slate-900">SSD NVMe PCIe 5.0</td>
+                  <td class="p-3 font-mono">10.000–14.800 MB/s</td>
+                  <td class="p-3">Alto (gama entusiasta)</td>
+                  <td class="p-3">Estaciones de trabajo de IA extrema, entrenamiento continuo y datasets de cientos de gigabytes.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="text-[11px] text-slate-500">Los SSD NVMe requieren que la placa madre y la plataforma sean compatibles con la ranura M.2 y la generación PCIe correspondiente.</p>
         </div>
       </section>
 
@@ -1364,6 +1440,12 @@
               <span class="font-bold text-emerald-700">[20]</span> <strong>Yang, S. et al. (2024).</strong> <em>DNA as a universal chemical substrate for computing and data storage. Nature Reviews Chemistry, 8, 179–194.</em>
               <a href="https://doi.org/10.1038/s41570-024-00576-4" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline block break-all mt-0.5">
                 https://doi.org/10.1038/s41570-024-00576-4
+              </a>
+            </div>
+            <div class="pt-2">
+              <span class="font-bold text-emerald-700">[35]</span> <strong>Microsoft Research Project Silica Team. (2026).</strong> <em>Laser writing in glass for dense, fast and efficient archival data storage. Nature, 650, 606–612.</em>
+              <a href="https://doi.org/10.1038/s41586-025-10042-w" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline block break-all mt-0.5">
+                https://doi.org/10.1038/s41586-025-10042-w
               </a>
             </div>
           </div>
